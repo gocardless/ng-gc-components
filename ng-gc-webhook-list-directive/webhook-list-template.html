@@ -1,0 +1,48 @@
+<div>
+  <div class="well welcome-annotation" ng-hide="webHooks">
+    <div class="page-notification">
+      <figure class="page-notification-icon page-notification-icon--large ss-connection"></figure>
+      <h1 class="u-text-heading">Send your first web hook</h1>
+      <p>Web hooks will appear here, but none have been triggered yet.<br>
+        Start by sending a new web hook.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- BODY CELL TEMPLATES -->
+  <span gc-set-fragment="tableBody:created_at" class="u-text-truncate u-block">
+    {{ $row.created_at | date }}
+  </span>
+  <span gc-set-fragment="tableBody:response_code" class="u-text-truncate u-block">
+    <span class="status-code" ng-class="'status-code--' + getStatusCodeLabel($row.response_code)">{{ $row.response_code || '-' }}</span>
+  </span>
+  <!-- BODY CELL TEMPLATES END -->
+
+  <div class="u-margin-Bm">
+    <gc-table
+      table-data="webHooks"
+      table-options="{
+        rowUrl: '/developer/web-hooks/{{ $row.id }}'
+      }"
+      table-columns="[{
+        field: 'created_at',
+        displayAs: 'Created',
+        className: 'created_at'
+      }, {
+        field: 'action',
+        displayAs: 'Action',
+        className: 'action'
+      }, {
+        field: 'resource_type',
+        displayAs: 'Resource Type',
+        className: 'resource_type'
+      }, {
+        field: 'response_code',
+        displayAs: 'Status',
+        className: 'response_code'
+      }]">
+    </gc-table>
+  </div>
+
+  <pagination-nav meta="webHooks.meta"></pagination-nav>
+</div>

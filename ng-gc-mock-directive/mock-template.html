@@ -1,0 +1,31 @@
+<div>
+  <div
+    ng-show="user.real_user.admin"
+    ng-init="mockVisible = false"
+    class="mock-bar"
+    ng-class="{
+      'mock-bar--mocked': user.email != user.real_user.email
+    }">
+
+    <button toggle="mockVisible" class="mock-bar__toggle">
+      {{ user.email }}
+    </button>
+    <div class="mock-bar__content" ng-show="mockVisible">
+      <div class="u-padding-Am u-padding-Bn u-cf">
+        <div class="u-cf">
+          <label class="label label--stacked u-pull-start" for="mock-user">Admin account: {{ user.real_user.email }}, viewing:</label>
+          <a class="u-pull-end u-text-h5" ng-click="endSession()" href
+            ng-show="user.email != user.real_user.email">End session</a>
+        </div>
+        <form name="mockForm">
+          <input type="text" class="input input--small input--block"
+                 ng-model="user.email" required placeholder="email or user id"
+                 id="mock-user">
+          <div class="error-label" ng-show="mockError">{{ mockError }}</div>
+          <div class="u-padding-Vs"></div>
+          <input class="btn btn--info input--stacked btn--small btn--block" ng-click="changeSession()" type="submit" value="Change session" ng-disabled="mockForm.$invalid">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

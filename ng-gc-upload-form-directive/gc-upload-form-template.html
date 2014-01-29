@@ -1,0 +1,35 @@
+<div>
+  <form
+    action="{{formAction}}"
+    name="uploadForm"
+    novalidate
+    stop-propagation="submit"
+    gc-upload="{
+      onUploadEnd: handleUploadEnd
+    }">
+
+    <div class="well u-margin-Txxs u-padding-Axs">
+      <input type="file" name="file" ng-model="file" accept="{{ fileAccept }}" gc-file-value>
+
+      <div ng-transclude>
+      </div>
+
+      <div ng-show="uploadErrors">
+        <p ng-repeat="fileError in uploadErrors" class="u-text-primary u-text-h6 u-margin-Txxs">
+          {{ fileError }}
+        </p>
+      </div>
+    </div>
+
+    <div class="u-margin-Ts">
+      <button class="btn btn--info"
+        ng-class="{
+          'btn--block': !isInlineUpload,
+          'btn--small': isInlineUpload
+        }" id="fileUploadBtn"
+        ng-disabled="uploadForm.$pristine || !uploadForm.file.$viewValue || $isUploading">
+        <span>Upload<span ng-show="$isUploading">ing...</span></span>
+      </button>
+    </div>
+  </form>
+</div>

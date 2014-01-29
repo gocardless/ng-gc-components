@@ -1,0 +1,25 @@
+<div class="pagination-nav u-cf" ng-show="meta().records">
+  <div class="u-pull-end u-text-h5">
+    <span class="pagination-nav__detail">
+      Viewing
+      <span class="pagination-nav__current-range">
+        {{ paginationStart(meta()) }}-{{ paginationEnd(meta()) }}
+      </span>
+      of
+      <span class="pagination-nav__total-records">
+        {{ meta().records }}
+      </span>
+      results
+    </span>
+    <a class="pagination-nav__btn pagination-nav__btn--previous"
+      ng-class="{ 'is-disabled': !meta().links.previous }"
+      ng-href="{{ paginationLink(meta().links.previous) }}">
+      <i class="ss-navigateleft pagination-nav__btn__icon btn-icon"></i>
+    </a>
+    <a class="pagination-nav__btn pagination-nav__btn--next"
+      ng-class="{ 'is-disabled': !meta().links.next }"
+      ng-href="{{ paginationLink(meta().links.next) }}">
+      <i class="ss-navigateright pagination-nav__btn__icon btn-icon"></i>
+    </a>
+  </div>
+</div>

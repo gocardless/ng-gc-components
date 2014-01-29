@@ -1,0 +1,5 @@
+<div class="payments" ng-show="plans.length">
+  <plan-row plan="plan" is-authorization="{{ !!plan.uri }}"
+    url="{{ getPlanUrl(plan) }}"
+    ng-repeat="plan in plans | orderBy:'-created_at'"></plan-row>
+</div>

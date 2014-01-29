@@ -1,0 +1,35 @@
+<table class="table-list" ng-show="tableData.length">
+  <thead>
+    <tr>
+      <th class="table-list__header u-text-truncate"
+        ng-class="'table-list__header--{{ column.className || column.field }}'"
+        th-sortable="{
+          name: options.name,
+          field: column.sortField
+        }"
+        ng-repeat="column in columns"
+        ng-hide="column.isHidden">
+        <span gc-get-fragment="{{ options.fragmentPrefix }}tableHeader:{{ column.field }}">
+          {{ column.displayAs }} <!-- FALLBACK -->
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in tableData"
+        gc-click-when="{{ options.rowUrl }}"
+        gc-click-when-scope="{ $row: row }"
+        class="table-list__row">
+      <td class="table-list__cell"
+        ng-class="'table-list__cell--{{ column.className || column.field }}'"
+        ng-repeat="column in columns"
+        ng-hide="column.isHidden">
+        <span gc-get-fragment="{{ options.fragmentPrefix }}tableBody:{{ column.field }}"
+          class="u-text-truncate u-block"
+          fragment-data="{ $row: row }">
+          {{ row[column.field] }} <!-- FALLBACK -->
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

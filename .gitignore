@@ -1,0 +1,19 @@
+# Ignore all logfiles and tempfiles.
+/.tmp
+/log/*.log
+/tmp
+npm-debug.log
+
+node_modules/
+components
+
+# Ignore the DS_Store
+.DS_Store
+
+# JUnit
+test-results.xml
+
+# Ignore spec coverage output
+coverage
+
+libpeerconnection.log

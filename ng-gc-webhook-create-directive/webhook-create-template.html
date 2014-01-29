@@ -1,0 +1,111 @@
+<div>
+  <form ng-submit="createWebHook()" name="webHookForm" novalidate>
+    <div class="u-padding-Hm u-padding-Ts">
+      <div class="label-meta u-margin-Bs">
+        Web hooks alert your server of asynchronous events (e.g., when a bill is paid).
+        You can find more details in our <a href="https://gocardless.com/docs" target="_blank">documentation</a>.
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__label">
+          <label for="url" class="label">Web hook URL:</label>
+        </div>
+        <div class="control-group__column">
+          <input type="url" ng-model="webHook.form.url" name="url" id="url" class="input" placeholder="" required>
+          <div class="error-label" ng-show="form.url.$dirty && form.url.$invalid">
+            <span ng-show="form.url.$error.required">Please specify a url</span>
+          </div>
+          <input-error errors="formErrors" field="url"></input-error>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__label control-group__label--select">
+          <label for="resource_type" class="label">Resource type:</label>
+        </div>
+        <div class="control-group__column">
+          <select ng-model="webHook.form.resource_type" id="resource_type" name="resource_type"
+                  ng-options="i.name for i in webHook.resourceTypes" class="add-plan__select" required></select>
+          <input-error errors="formErrors" field="resource_type"></input-error>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__label">
+          <label for="resource_id" class="label">Resource ID:</label>
+        </div>
+        <div class="control-group__column">
+          <input type="text" ng-model="webHook.form.resource_id" name="resource_id" id="resource_id" class="input" placeholder required>
+          <input-error errors="formErrors" field="resource_id"></input-error>
+        </div>
+      </div>
+
+      <div class="control-group" ng-show="webHook.isResourceType(webHook.RESOURCE_TYPES.BILL)">
+        <div class="control-group__label">
+          <label for="source_id" class="label">Source ID:</label>
+        </div>
+        <div class="control-group__column">
+          <input type="text" ng-model="webHook.form.source_id" name="source_id" id="source_id" class="input" placeholder="">
+          <input-error errors="formErrors" field="source_id"></input-error>
+          <div class="label-meta u-margin-Txxs">
+            ID of the parent subscription or pre-authorization - leave blank for a one-off bill
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__label control-group__label--select">
+          <label for="action" class="label">Action:</label>
+        </div>
+        <div class="control-group__column">
+          <select ng-model="webHook.form.action" id="action" name="action"
+                        ng-options="i.name for i in webHook.actions" class="add-plan__select" required></select>
+          <input-error errors="formErrors" field="action"></input-error>
+          <div class="label-meta u-margin-Txxs">
+            <div ng-if="webHook.isAction(webHook.ACTIONS.CREATED)">
+              This is fired when a bill is created automatically under a subscription. E.g., for a monthly subscription, you will receive this webHook once per month. The bill will be "pending" for several days until it is "paid" or has "failed"
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.FAILED)">
+              This is fired when a bill could not be debited from a customer's account. This is usually because insufficient funds are available. By default, GoCardless will not attempt to take the payment again.
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.PAID)">
+              This is fired when a bill has successfully been debited from a customer's account. It can take up to 5 business days if it's the first bill taken from a customer. The cash will be held by GoCardless for the duration of the Merchant's holding period, after which it will be "withdrawn" (i.e., paid out) directly into the Merchant's registered bank account.
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.WITHDRAWN)">
+              This is fired when a bill that is being held by GoCardless on behalf of a Merchant is withdrawn (i.e., paid out) into the Merchant's bank account. Money should appear in the account no later than 1 business day after the webHook is fired.
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.CHARGEDBACK)">
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.REFUNDED)">
+              This is fired when a bill is refunded after having been paid as a result of a chargeback that a customer has filed with their bank under the Direct Debit Guarantee.
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.RETRIED)">
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.CANCELLED)">
+              <div ng-if="webHook.isResourceType(webHook.RESOURCE_TYPES.SUBSCRIPTION)">
+                This is fired when a subscription is cancelled by a customer. No further bills will be automatically created under the subscription
+              </div>
+              <div ng-if="webHook.isResourceType(webHook.RESOURCE_TYPES.PRE_AUTHORIZATION)">
+                This is fired when a pre-authorization is cancelled by a customer. No further bills can be created under this pre-authorization.
+              </div>
+            </div>
+            <div ng-if="webHook.isAction(webHook.ACTIONS.EXPIRED)">
+              <div ng-if="webHook.isResourceType(webHook.RESOURCE_TYPES.SUBSCRIPTION)">
+                This is fired when a subscription reaches its expiry date. No further bills will be automatically created under the subscription.
+              </div>
+              <div ng-if="webHook.isResourceType(webHook.RESOURCE_TYPES.PRE_AUTHORIZATION)">
+                This is fired when a pre-authorization reaches its expiry date. No further bills can be created under this pre-authorization.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="u-padding-Am u-padding-Tn">
+      <input type="submit" class="btn btn--info btn--block"
+             ng-disabled="webHookForm.$invalid || isSubmitting"
+             value="Send web hook">
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+<div class="u-inline">
+  <label class="label filter-bar__label u-margin-Hxxs" for="filter-after">
+    Created between
+  </label>
+
+  <pikaday id="filter-after"
+           name="after"
+           ng-class="'input input--small filter-bar__pikaday'"
+           placeholder="Start date"
+           aria-label="Created between: start date"
+           date="filters.after"
+           filter-data="{ after: (after | toDateTime) }"></pikaday>
+
+  <label class="label filter-bar__label u-margin-Hxxs" for="filter-before">
+    &amp;
+  </label>
+
+  <pikaday id="filter-before"
+           name="before"
+           ng-class="'input input--small filter-bar__pikaday'"
+           placeholder="End date"
+           aria-label="Created between: end date"
+           date="filters.before"
+           filter-data="{ before: (before | toDateTime:true) }"></pikaday>
+</div>

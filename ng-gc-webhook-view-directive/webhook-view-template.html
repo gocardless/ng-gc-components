@@ -1,0 +1,40 @@
+<div>
+  <div class="well filter-bar u-cf">
+    <div class="nav app-header-nav--subnav">
+      <label class="nav__item app-header-nav__btn"
+        ng-class="{ 'is-active': isRequestType() }">
+        Request
+        <input type="radio" class="u-is-hidden-visually"
+          ng-model="webHookType" ng-value="REQUEST_TYPE">
+      </label>
+      <label class="nav__item app-header-nav__btn"
+        ng-class="{ 'is-active': isResponseType() }">
+        Response
+        <input type="radio" class="u-is-hidden-visually"
+          ng-model="webHookType" ng-value="RESPONSE_TYPE">
+      </label>
+      </a>
+    </div>
+  </div>
+
+  <div class="u-margin-Txs u-text-h6">
+    <div ng-show="isRequestType()">
+      <code class="well u-block u-margin-Bm">
+        <pre class="u-margin-Vn code">{{ (webHook.request_headers | keyvalue) || "no request headers" }}</pre>
+      </code>
+
+      <code class="well u-block">
+        <pre class="u-margin-Vn code">{{ (webHook.request_body | prettyJson) || "no request body" }}</pre>
+      </code>
+    </div>
+    <div ng-show="isResponseType()">
+      <code class="well u-block u-margin-Bm">
+        <pre class="u-margin-Vn code">{{ (webHook.response_headers | keyvalue) || "no response headers" }}</pre>
+      </code>
+
+      <code class="well u-block">
+        <pre class="u-margin-Vn code">{{ (webHook.response_body | prettyJson) || "no response body" }}</pre>
+      </code>
+    </div>
+  </div>
+</div>

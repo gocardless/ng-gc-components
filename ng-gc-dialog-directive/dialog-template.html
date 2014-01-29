@@ -1,0 +1,14 @@
+<div class="dialog-wrapper">
+  <div class="dialog__header center-header">
+    <div class="center-header__side">
+      <button class="dialog__header__close btn btn--small btn--hollow" ng-click="hideDialog()">{{ cancelText || 'Cancel' }}</button>
+    </div>
+    <div class="center-header__title">
+      <h1 class="dialog__header__title u-text-h4" id="dialog-title">{{ title }}</h1>
+    </div>
+    <div class="center-header__side">
+    </div>
+  </div>
+  <div class="dialog__inner" ng-transclude>
+  </div>
+</div>

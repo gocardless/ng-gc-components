@@ -1,0 +1,48 @@
+<div>
+  <dialog show="isVisible" ng-class="'login-dialog'"
+    template-url="empty"
+    options="{
+      preventHideOnClick: true,
+      preventHideOnEscape: true
+    }">
+    <form ng-submit="signIn()" name="loginForm">
+      <div class="u-padding-Am">
+        <div class="error-label u-margin-Bm" ng-show="signInError">
+          <span>{{ signInError }}</span>
+        </div>
+
+        <label for="login-email" class="label label--stacked">Email</label>
+        <input type="email" id="login-email" name="loginEmail"
+          ng-model="loginDetails.email"
+          class="input input--stacked input--block"
+          tabindex="0">
+        <div class="error-label" ng-show="loginForm.loginEmail.$dirty && form.loginEmail.$invalid">
+          <span ng-show="loginForm.loginEmail.$error.required">Please provide a valid email</span>
+        </div>
+
+        <div class="u-cf">
+          <div class="u-pull-start">
+            <label for="login-password" class="label label--stacked">Password</label>
+          </div>
+          <div class="u-pull-end" ng-show="AppConfig.gocardless">
+            <a href="{{ AppConfig.gocardless.host }}/users/password/new"
+              class="label label--stacked u-link u-text-normal"
+              tabindex="1">Forgot your password?</a>
+          </div>
+        </div>
+        <input type="password" id="login-password" name="loginPassword"
+          ng-model="loginDetails.password"
+          class="input input--stacked input--block"
+          tabindex="0">
+        <div class="error-label" ng-show="loginForm.loginPassword.$dirty && form.loginPassword.$invalid">
+          <span ng-show="loginForm.loginPassword.$error.required">Please provide a password</span>
+        </div>
+
+        <input type="submit"
+          tabindex="0"
+          class="btn btn--info btn--block"
+          value="Sign in">
+      </div>
+    </form>
+  </dialog>
+</div>

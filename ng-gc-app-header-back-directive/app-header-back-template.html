@@ -1,0 +1,24 @@
+<div class="stripe stripe--base page__outer-header">
+  <header class="page__header site__container">
+    <div class="center-header">
+      <div class="center-header__side">
+        <button class="btn btn--hollow" ng-click="navigateBack()" ng-show="showBackBtn">
+          <i class="btn-icon btn-icon--centered icon-back-arrow"></i>
+        </button>
+      </div>
+
+      <div class="center-header__title">
+        <h1 class="u-text-heading page__header__title"
+          ng-class="{ 'page__header__title--with-subheading': subheading }">{{ subheading || title }}</h1>
+        <h2 ng-show="subheading" class="u-text-h4 u-text-heading page__header__subheading">{{ title }}</h2>
+      </div>
+
+      <div class="center-header__side center-header__side--end">
+        <div class="center-header__side--end__inner">
+          <div class="u-pull-end" ng-transclude>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
