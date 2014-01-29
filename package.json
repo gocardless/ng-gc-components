@@ -1,9 +1,9 @@
 {
-  "name": "ng-gc-webhook-create-directive",
+  "name": "ng-gc-components",
   "version": "0.2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gocardless-ng/ng-gc-webhook-create-directive.git"
+    "url": "https://github.com/gocardless/ng-gc-components.git"
   },
   "devDependencies": {
     "karma": "~0.11.13",
