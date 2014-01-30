@@ -50,10 +50,7 @@ angular.module('gc.pikaday', [
         // Get out of Angulars event loop with setTimeout
         // pikaday.setDate calls 'onSelect' which calls scope.$apply
         $window.setTimeout(function() {
-          var date = $window.moment(scope.date);
-          if (scope.date && date.isValid()) {
-            pikaday.setDate(formatDate(date));
-          }
+          pikaday.setDate(scope.date);
         }, 0);
 
         scope.pikaday = pikaday;

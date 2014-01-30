@@ -25,7 +25,9 @@ angular.module('gc.utils.validDateFormat', [])
       'DD/MM/YYYY',
       'DD/MM/YY',
       'D/MMM/YYYY',
-      'MMM/D/YYYY'
+      'MMM/D/YYYY',
+      'YYYY-MM-DDTHH:mm:ss',
+      'YYYY-MM-DDTHH:mm:ssZ'
     ];
 
     function validDateFormat(dateStr) {
