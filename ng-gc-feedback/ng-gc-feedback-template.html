@@ -1,0 +1,18 @@
+<div>
+  <div toggle="isVisible" ng-transclude></div>
+
+  <dialog title="Help us improve" show="isVisible">
+    <form ng-submit="sendFeedback()" name="feedbackForm" ng-controller="FeedbackController">
+      <div class="u-padding-Am u-padding-Bn">
+        <textarea class="input input--textarea" placeholder="Let us know what you think..." ng-model="feedback" required></textarea>
+      </div>
+
+      <div class="u-padding-Am">
+        <input type="submit"
+               value="Send feedback"
+               ng-disabled="feedbackForm.$invalid"
+               class="btn btn--info btn--block">
+      </div>
+    </form>
+  </dialog>
+</div>
