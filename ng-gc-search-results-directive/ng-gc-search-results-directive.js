@@ -5,12 +5,12 @@ angular.module('gc.searchResults', [
   'gc.searchResultsController',
   'ngGcCurrencySymbolFilter',
   'ng-gc-search-results-template.html',
-  'templates/gc-search-results-bills-template.html',
-  'templates/gc-search-results-customers-template.html',
-  'templates/gc-search-results-merchants-template.html',
-  'templates/gc-search-results-empty-template.html',
-  'templates/gc-search-results-loading-template.html',
-  'templates/gc-search-results-payouts-template.html'
+  'templates/ng-gc-search-results-bills-template.html',
+  'templates/ng-gc-search-results-customers-template.html',
+  'templates/ng-gc-search-results-merchants-template.html',
+  'templates/ng-gc-search-results-empty-template.html',
+  'templates/ng-gc-search-results-loading-template.html',
+  'templates/ng-gc-search-results-payouts-template.html'
 ]).directive('gcSearchResults', [
   function gcSearchResultsDirective() {
 
