@@ -1,0 +1,24 @@
+<div>
+  <dialog template-url="ng-gc-global-search-dialog-template.html" options="dialogOptions" show="isDialogVisible">
+    <div class="stripe stripe--accent search-header">
+      <div class="search-header__container site__container">
+        <div class="global-search-bar">
+          <i class="ss-search global-search-bar__icon"></i>
+          <input type="text"
+            ng-model="search.query"
+            placeholder="Search GoCardless"
+            class="global-search-bar__input global-search-bar__input--block"
+            focus-input="isDialogVisible"
+            gc-global-search-input>
+          <a href ng-click="closeSearch()"
+            class="search-header__container__close">
+            <i class="ss-delete"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="site__container">
+      <gc-search-results results="search.results"></gc-search-results>
+    </div>
+  </dialog>
+</div>

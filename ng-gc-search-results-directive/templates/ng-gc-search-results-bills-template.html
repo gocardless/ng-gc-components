@@ -1,0 +1,41 @@
+<div>
+  <!-- BODY CELL TEMPLATES -->
+  <span gc-set-fragment="tableBody:status" class="u-text-truncate u-block">
+    <div class="pill pill--inline pill--{{ $row.status }}">
+      {{ $row.status | dashToSpace | capitalize }}
+    </div>
+  </span>
+  <span gc-set-fragment="tableBody:name" class="u-text-truncate u-block">
+    <a ng-href="/payments/{{ $row.id }}">
+      {{ $row.name || $row.id }}
+    </a>
+  </span>
+  <span gc-set-fragment="tableBody:date" class="u-text-truncate u-block">
+    {{ $row.date | date }}
+  </span>
+  <span gc-set-fragment="tableBody:amount" class="u-text-truncate u-block">
+    {{ $row.amount | currency:($row.currency | currencySymbol) }}
+  </span>
+  <!-- BODY CELL TEMPLATES END -->
+
+  <gc-table
+    ng-class="'gc-search-results-table'"
+    table-data="results.bills.results"
+    table-columns="[{
+      field: 'status',
+      displayAs: '',
+      className: 'status'
+    }, {
+      field: 'name',
+      displayAs: 'Name',
+      className: 'full'
+    }, {
+      field: 'date',
+      displayAs: 'Created'
+    }, {
+      field: 'amount',
+      displayAs: 'Amount',
+      className: 'amount'
+    }]">
+  </gc-table>
+</div>

@@ -1,0 +1,32 @@
+<div>
+  <!-- BODY CELL TEMPLATES -->
+  <span gc-set-fragment="tableBody:name" class="u-text-truncate u-block">
+    <a ng-href="/payouts/{{ $row.id }}">
+      {{ $row.name }}
+    </a>
+  </span>
+  <span gc-set-fragment="tableBody:received_at" class="u-text-truncate u-block">
+    {{ $row.received_at | date }}
+  </span>
+  <span gc-set-fragment="tableBody:amount" class="u-text-truncate u-block">
+    {{ $row.amount | currency:($row.currency | currencySymbol) }}
+  </span>
+  <!-- BODY CELL TEMPLATES END -->
+
+  <gc-table
+    ng-class="'gc-search-results-table'"
+    table-data="results.payouts.results"
+    table-columns="[{
+      field: 'name',
+      displayAs: 'Reference',
+      className: 'full'
+    }, {
+      field: 'received_at',
+      displayAs: 'Paid Out'
+    }, {
+      field: 'amount',
+      displayAs: 'Amount',
+      className: 'amount'
+    }]">
+  </gc-table>
+</div>

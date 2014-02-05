@@ -1,0 +1,43 @@
+<div>
+  <!-- BODY CELL TEMPLATES -->
+  <span gc-set-fragment="searchCustomers:tableBody:status">
+    <customer-status customer="$row"></customer-status>
+  </span>
+  <span gc-set-fragment="searchCustomers:tableBody:display_name" class="u-text-truncate u-block">
+    <a ng-href="{{customerUrl($row)}}"  target="_self">
+      {{ $row.display_name }}
+    </a>
+  </span>
+  <span gc-set-fragment="searchCustomers:tableBody:created_at">
+    {{ $row.created_at | date }}
+  </span>
+  <!-- BODY CELL TEMPLATES END -->
+
+  <gc-table
+    table-data="results.customers.results"
+    table-options="{
+      name: 'customers:search',
+      fragmentPrefix: 'searchCustomers:'
+    }"
+    table-columns="[{
+      field: 'status',
+      displayAs: '',
+      className: 'status'
+    }, {
+      field: 'display_name',
+      displayAs: 'Name',
+      sortField: 'display_name.sortable'
+    }, {
+      field: 'company_name',
+      displayAs: 'Company',
+      sortField: 'company_name.sortable'
+    }, {
+      field: 'email',
+      displayAs: 'Email'
+    }, {
+      field: 'created_at',
+      displayAs: 'Added',
+      sortField: 'created_at'
+    }]">
+  </gc-table>
+</div>

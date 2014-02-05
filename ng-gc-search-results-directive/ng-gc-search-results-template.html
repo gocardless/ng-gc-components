@@ -1,0 +1,41 @@
+
+<div class="search-results">
+  <ul class="nav search-results__facets" ng-show="isFacetsVisible()">
+    <li class="nav__item" ng-show="results.customers">
+      <button ng-click="SearchState.transition('customers')"
+        ng-class="{ 'is-active': SearchState.get() == 'customers' }"
+        class="search-pill"
+        ng-disabled="!results.customers.total">
+        Customers ({{ results.customers.total }})
+      </button>
+    </li>
+    <li class="nav__item" ng-show="results.merchants">
+      <button ng-click="SearchState.transition('merchants')"
+        ng-class="{ 'is-active': SearchState.get() == 'merchants' }"
+        class="search-pill"
+        ng-disabled="!results.merchants.total">
+        Merchants ({{ results.merchants.total }})
+      </button>
+    </li>
+    <li class="nav__item" ng-show="results.bills">
+      <button ng-click="SearchState.transition('bills')"
+        ng-class="{ 'is-active': SearchState.get() == 'bills' }"
+        class="search-pill"
+        ng-disabled="!results.bills.total">
+        Payments ({{ results.bills.total }})
+      </button>
+    </li>
+    <li class="nav__item" ng-show="results.payouts">
+      <button ng-click="SearchState.transition('payouts')"
+        ng-class="{ 'is-active': SearchState.get() == 'payouts' }"
+        class="search-pill"
+        ng-disabled="!results.payouts.total">
+        Payouts ({{ results.payouts.total }})
+      </button>
+    </li>
+  </ul>
+
+  <div class="search-results__output">
+    <ng-include src="searchResultsTemplate(SearchState.get())">
+  </div>
+</div>

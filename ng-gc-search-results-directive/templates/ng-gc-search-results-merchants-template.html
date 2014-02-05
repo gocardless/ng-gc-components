@@ -1,0 +1,28 @@
+<div>
+  <!-- BODY CELL TEMPLATES -->
+  <span gc-set-fragment="searchMerchants:tableBody:name" class="u-text-truncate u-inline-block">
+    <a ng-href="/merchants/{{ $row.id }}">
+      {{ $row.name || $row.id }}
+    </a>
+  </span>
+  <!-- BODY CELL TEMPLATES END -->
+
+  <gc-table
+    table-data="results.merchants.results"
+    table-options="{
+      name: 'merchants:search',
+      fragmentPrefix: 'searchMerchants:'
+    }"
+    table-columns="[{
+      field: 'name',
+      displayAs: 'Merchant name',
+      className: 'name'
+    }, {
+      field: 'email',
+      displayAs: 'Email'
+    }, {
+      field: 'owner',
+      displayAs: 'Owner'
+    }]">
+  </gc-table>
+</div>

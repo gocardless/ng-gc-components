@@ -5,13 +5,12 @@ var currentFile = path.basename(__filename);
 
 var filepath = ngComponentScriptBuilder.write({
   cwd: cwd,
-  stripPrefix: cwd + '/',
   patterns: [
     '*.js',
     '*.css',
     '*.scss',
-    '*.html',
-    '!*spec.js*',
+    '**/*.html',
+    '!**/*spec.js*',
     '!' + currentFile
   ],
 });

@@ -1,0 +1,5 @@
+<div class="customer-status">
+  <i class="customer-status__indicator"
+     ng-class="'customer-status__indicator--' + customerStatus(customer)"></i>
+  <span class="customer-status__label" ng-show="title">{{ customerStatusTitle(customer) | capitalize }}</span>
+</div>
