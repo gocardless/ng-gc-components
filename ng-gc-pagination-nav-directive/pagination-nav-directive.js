@@ -10,7 +10,8 @@ angular.module('gc.paginationNav', [
       restrict: 'E',
       templateUrl: 'pagination-nav-template.html',
       scope: {
-        meta: '&'
+        meta: '&',
+        paramName: '@?'
       },
       controller: 'PaginationNavController',
       replace: true

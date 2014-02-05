@@ -6,6 +6,8 @@ angular.module('gc.paginationNavController', [
   '$scope', '$location', 'utils',
   function PaginationNavController($scope, $location, utils) {
 
+    $scope.paramName = ($scope.paramName || 'page');
+
     function validMeta(meta) {
       return meta && angular.isNumber(meta.page) &&
         angular.isNumber(meta.per_page);
@@ -24,7 +26,7 @@ angular.module('gc.paginationNavController', [
       }
 
       var search = angular.extend({}, $location.search());
-      search.page = page;
+      search[$scope.paramName] = page;
       return $location.path() + getValidLink('?' + utils.param(search));
     };
 

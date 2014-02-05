@@ -24,7 +24,7 @@ describe('DialogDirective', function() {
     $compile(backdrop)(scope);
     scope.$digest();
     elmScope = dialogElm.scope();
-dump(dialogElm);
+
     // Dialog element gets ripped out and appended to the body
     elm = angular.element(elmScope.dialog.element());
   }));

@@ -32,7 +32,20 @@ describe('PaginationNavController', function(){
         it('generates a valid param string', function() {
           expect(scope.paginationLink(1)).toBe('?page=1&status=pending');
         });
+
+        describe('and a non-default param name', function() {
+          beforeEach(function() {
+            $location.search('page', null);
+            scope.paramName = 'payment_page';
+          });
+
+          it('generates a valid param string', function() {
+            expect(scope.paginationLink(1))
+              .toBe('?status=pending&payment_page=1');
+          });
+        });
       });
+
       describe('with no existing search params', function () {
         beforeEach(function() {
           $location.search().page = 1;
@@ -40,6 +53,17 @@ describe('PaginationNavController', function(){
 
         it('generates a valid param string', function() {
           expect(scope.paginationLink(1)).toBe('?page=1');
+        });
+
+        describe('and a non-default param name', function() {
+          beforeEach(function() {
+            $location.search('page', null);
+            scope.paramName = 'payment_page';
+          });
+
+          it('generates a valid param string', function() {
+            expect(scope.paginationLink(1)).toBe('?payment_page=1');
+          });
         });
       });
 
@@ -50,6 +74,17 @@ describe('PaginationNavController', function(){
 
         it('includes the path in the link', function() {
           expect(scope.paginationLink(1)).toBe('/somepath?page=1');
+        });
+
+        ddescribe('and a non-default param name', function() {
+          beforeEach(function() {
+            $location.search('page', null);
+            scope.paramName = 'payment_page';
+          });
+
+          it('includes the path in the link', function() {
+            expect(scope.paginationLink(1)).toBe('/somepath?payment_page=1');
+          });
         });
       });
     });
