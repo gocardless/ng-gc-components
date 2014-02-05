@@ -19,8 +19,8 @@ describe('login', function() {
       '<login></login>'
     );
     $compile(elm)($rootScope);
-    elmScope = elm.isolateScope();
     $rootScope.$digest();
+    elmScope = elm.isolateScope();
     form = elmScope.loginForm;
   }
 

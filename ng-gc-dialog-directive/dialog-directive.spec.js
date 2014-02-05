@@ -3,28 +3,27 @@
 describe('DialogDirective', function() {
   beforeEach(module('gc.dialog'));
 
-  var elm, dialogElm, scope, location, elmScope, backdrop;
+  var elm, dialogElm, scope, location, elmScope;
 
   beforeEach(inject(function($rootScope, $compile, $location) {
-    scope = $rootScope;
+    scope = $rootScope.$new();
     location = $location;
 
-    backdrop = angular.element(
-     '<div backdrop>' +
-     '</div>'
-    );
-
+    var ID = Date.now();
     dialogElm = angular.element(
-     '<dialog title="{{ dialogTitle }}" show="showDialog">' +
-       '{{ message }}' +
-     '</dialog>'
+      '<div backdrop>' +
+      '<dialog title="{{ dialogTitle }}" show="showDialog" id="' + ID + '" >' +
+        '{{ message }}' +
+      '</dialog>' +
+      '</div>'
     );
 
-    backdrop.append(dialogElm);
-    $compile(backdrop)(scope);
+    $compile(dialogElm)(scope);
     scope.$digest();
-    elmScope = dialogElm.scope();
-dump(dialogElm);
+    // HACK - dialogElm no longer references the <dialog> elm, it gets inserted
+    // before body end
+    elmScope = $('#' + ID).isolateScope();
+
     // Dialog element gets ripped out and appended to the body
     elm = angular.element(elmScope.dialog.element());
   }));

@@ -17,8 +17,8 @@ describe('PopoverDirective', function() {
     );
 
     $compile(elm)(scope);
-    elmScope = elm.isolateScope();
     scope.$digest();
+    elmScope = elm.isolateScope();
   }));
 
   it('is not visible', function() {

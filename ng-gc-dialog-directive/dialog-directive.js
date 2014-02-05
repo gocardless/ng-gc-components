@@ -5,8 +5,8 @@ angular.module('gc.dialog', [
   'gc.dialogController',
   'dialog-template.html',
   'dialog-empty-template.html'
-]).directive('dialog',
-  ['$rootScope', '$window', '$timeout', '$animate',
+]).directive('dialog', [
+  '$rootScope', '$window', '$timeout', '$animate',
   function dialogDirective($rootScope, $window, $timeout, $animate) {
     var Dialog = $window.Dialog;
 
@@ -16,9 +16,8 @@ angular.module('gc.dialog', [
     return {
       restrict: 'E',
       templateUrl: function(element, attrs) {
-        var templateUrl = attrs.templateUrl;
-        if (templateUrl === 'empty') { return EMPTY_TMPL; }
-        else { return templateUrl || DEFAULT_TMPL; }
+        if (attrs.templateUrl === 'empty') { return EMPTY_TMPL; }
+        else { return attrs.templateUrl || DEFAULT_TMPL; }
       },
       replace: true,
       transclude: true,
@@ -70,4 +69,5 @@ angular.module('gc.dialog', [
       }
     };
 
-  }]);
+  }
+]);
