@@ -3,7 +3,7 @@
 angular.module('gc.searchResultsController', [
   'gc.utils'
 ])
-// Map to template files > templates/gc-search-results-CONSTANT-template.html
+// Map to template files > templates/ng-gc-search-results-CONSTANT-template.html
 .constant('SearchStates', {
   MERCHANTS: 'merchants',
   CUSTOMERS: 'customers',
@@ -59,7 +59,7 @@ angular.module('gc.searchResultsController', [
 
     $scope.searchResultsTemplate = function searchResultsTemplate(state) {
       if (searchKeys.indexOf(state) === -1) { return; }
-      var tmpl = 'templates/gc-search-results-' + state + '-template.html';
+      var tmpl = 'templates/ng-gc-search-results-' + state + '-template.html';
       return tmpl;
     };
 
