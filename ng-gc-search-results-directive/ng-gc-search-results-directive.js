@@ -4,7 +4,7 @@ angular.module('gc.searchResults', [
   'gc.customerStatus',
   'gc.searchResultsController',
   'ngGcCurrencySymbolFilter',
-  'gc-search-results-template.html',
+  'ng-gc-search-results-template.html',
   'templates/gc-search-results-bills-template.html',
   'templates/gc-search-results-customers-template.html',
   'templates/gc-search-results-merchants-template.html',
