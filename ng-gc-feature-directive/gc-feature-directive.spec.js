@@ -2,9 +2,6 @@
 
 describe('gc.featureDirective', function() {
   beforeEach(module('gc.featureDirective'));
-  beforeEach(module(
-    'app/shared/components/gc-feature/gc-feature-template.html'
-  ));
 
   var elm, scope, $httpBackend;
 
