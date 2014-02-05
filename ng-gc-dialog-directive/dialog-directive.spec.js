@@ -22,9 +22,9 @@ describe('DialogDirective', function() {
 
     backdrop.append(dialogElm);
     $compile(backdrop)(scope);
-    elmScope = dialogElm.isolateScope();
     scope.$digest();
-
+    elmScope = dialogElm.scope();
+dump(dialogElm);
     // Dialog element gets ripped out and appended to the body
     elm = angular.element(elmScope.dialog.element());
   }));
