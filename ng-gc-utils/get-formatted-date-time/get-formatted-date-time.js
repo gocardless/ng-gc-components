@@ -8,12 +8,10 @@ angular.module('gc.utils.getFormattedDateTime', [
   function getFormattedDateTimeFactory($window, validDateFormat) {
 
     function getFormattedDateTime(dateStr, endOfDay) {
-      var date = validDateFormat.validDateFormat(dateStr);
-      if (!date) { return ''; }
-
+      if (!validDateFormat.validDateFormat(dateStr)) { return ''; }
+      var date = window.moment.utc(dateStr);
       if (endOfDay) { date.endOf('day'); }
-      var utcDate = date.format('YYYY-MM-DDTHH:mm:ss');
-      return $window.moment.utc(utcDate).format('YYYY-MM-DDTHH:mm:ssZ');
+      return date.format();
     }
 
     return {
