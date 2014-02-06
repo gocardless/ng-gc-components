@@ -58,9 +58,10 @@ angular.module('gc.searchResultsController', [
     ];
 
     $scope.searchResultsTemplate = function searchResultsTemplate(state) {
-      if (searchKeys.indexOf(state) === -1) { return; }
-      var tmpl = 'templates/ng-gc-search-results-' + state + '-template.html';
-      return tmpl;
+      if (!$scope.SearchState.valid(state)) {
+        state = SearchStates.EMPTY;
+      }
+      return 'templates/ng-gc-search-results-' + state + '-template.html';
     };
 
     $scope.isFacetsVisible = function isFacetsVisible() {
