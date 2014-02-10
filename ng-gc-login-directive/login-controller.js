@@ -14,9 +14,10 @@ angular.module('gc.loginController', [
     // This is so shit
     // but two way binding just doesn't happen with
     // autofilled/password managers
+    var email, password;
     function getLoginDetails() {
-      var email = findById('login-email');
-      var password = findById('login-password');
+      email = findById('login-email');
+      password = findById('login-password');
 
       return {
         email: email && email.value,
@@ -28,6 +29,8 @@ angular.module('gc.loginController', [
       SecurityService.signIn(getLoginDetails())
         .then(function() {
           $scope.signInError = '';
+          email && (email.value = '');
+          password && (password.value = '');
         }, function(reason) {
           $scope.signInError = reason.data.error;
         });
