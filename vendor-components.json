@@ -1,5 +1,5 @@
 [
-  "components/jquery/jquery.js",
+  "components/jquery/dist/jquery.js",
   "components/angular/angular.js",
   "components/angular-route/angular-route.js",
   "components/bower-lodash-angular/lodash.custom.js",
