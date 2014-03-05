@@ -1,0 +1,21 @@
+<div>
+  <dialog show="isHelpDialogShown" ng-class="'welcome-dialog'" template-url="empty">
+    <a href ng-click="hideHelpDialog()" class="dialog__inner__close u-padding-Am">
+      <i class="ss-delete"></i>
+    </a>
+    <div class="u-padding-Tl">
+      <figure class="u-padding-Tl ss-loading page-notification-icon page-notification-icon--large"></figure>
+    </div>
+    <div class="u-padding-Axm">
+      <h1 class="welcome-dialog__header u-text-heading u-margin-Bxs">
+        We will email your export <br> CSV shortly</h1>
+      <p class="welcome-dialog__content u-text-h5 u-margin-Bxs">
+        It will take anywhere from a few seconds to <br>
+        10 minutes to receive the email depending on <br>
+        how many records you have stored in your account.</p>
+      <a href class="u-text-h5" ng-click="hideHelpDialog()">Dismiss this message</a>
+    </div>
+  </dialog>
+
+  <div ng-transclude></div>
+</div>
