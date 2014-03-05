@@ -33,6 +33,7 @@ angular.module('gc.webHookModel', [
     NAMED_ACTIONS = [
       { value: ACTIONS.CREATED, name: 'Created' },
       { value: ACTIONS.FAILED, name: 'Failed' },
+      { value: ACTIONS.CANCELLED, name: 'Cancelled' },
       { value: ACTIONS.PAID, name: 'Paid' },
       { value: ACTIONS.WITHDRAWN, name: 'Withdrawn' },
       { value: ACTIONS.CHARGEDBACK, name: 'Chargedback' },
