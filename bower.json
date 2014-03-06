@@ -2,8 +2,8 @@
   "name": "ng-gc-compoents",
   "version": "0.0.2",
   "dependencies": {
-    "angular": "1.2.12",
-    "angular-route": "1.2.12",
+    "angular": "1.2.14",
+    "angular-route": "1.2.14",
     "bower-lodash-angular": "git://github.com/gocardless-client/bower-lodash-angular.git",
     "bower-redefine": "git@github.com:gocardless-client/bower-redefine.git",
     "dialog.js": "git@github.com:gocardless/dialog.js.git",
@@ -13,7 +13,7 @@
     "big.js": "~2.5.0"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.12",
+    "angular-mocks": "1.2.14",
     "jasmine-helpers": "git@github.com:gocardless/jasmine-helpers.git",
     "jquery": "~2.1.0"
   },

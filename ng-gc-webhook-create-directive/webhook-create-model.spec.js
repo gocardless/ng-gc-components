@@ -40,7 +40,7 @@ describe('WebHookModel', function(){
   describe('actions', function() {
     it('has bill actions', function() {
       var value = webHookModelFactory();
-      expect(value.scope.actions.length).toBe(7);
+      expect(value.scope.actions.length).toBe(8);
     });
 
     it('has limit actions', function() {
