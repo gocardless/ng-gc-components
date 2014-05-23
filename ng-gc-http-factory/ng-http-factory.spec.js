@@ -334,7 +334,7 @@ describe('HttpFactory', function(){
   });
 
   it('should not throw TypeError on null default params', function() {
-    $httpBackend.expect('GET', '/Path').respond('{}');
+    $httpBackend.expect('GET', '/Path?').respond('{}');
     var actions = queryFactory('/Path', {params: {param: null} });
     expect(function() {
       actions.get({});

@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('gc.popover', [
-  'gc.dialogController',
-  'popover-template.html'
+  'gc.dialogController'
 ]).directive('popover', [
   '$rootScope', '$window',
   function popoverDirective($rootScope, $window) {
@@ -10,7 +9,7 @@ angular.module('gc.popover', [
 
     return {
       restrict: 'E',
-      templateUrl: 'popover-template.html',
+      template: '<div ng-transclude ng-show="show"></div>',
       replace: true,
       transclude: true,
       controller: 'DialogController',
