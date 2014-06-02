@@ -13,6 +13,7 @@ angular.module('ngGcKeyvalueFilter', [
     }
 
     return function keyvalueFilter(target) {
+      if (!_.isObject(target)) { return target; }
       return Object.keys(target).map(function(key) {
         return capitalizeHeaders(key) + ': ' + target[key];
       }).join('\n');
