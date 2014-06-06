@@ -126,6 +126,28 @@ describe('HttpFactory', function(){
     });
 
     describe('interceptor', function() {
+      it('intercepts request', function() {
+        $httpBackend.expectGET('', {
+          'X-Bananas': 'yus',
+          'Accept':'application/json, text/plain, */*'
+        }).respond(200);
+
+        factory({
+          find: {
+            method: 'GET',
+            interceptor: {
+              request: function (config) {
+                config.headers = { 'X-Bananas': 'yus' };
+                return config;
+              }
+            }
+          }
+        }).find();
+
+        $httpBackend.flush();
+
+      });
+
       it('intercepts response', function() {
         var resp;
         $httpBackend.expectGET('').respond(200, { value: 1 });
