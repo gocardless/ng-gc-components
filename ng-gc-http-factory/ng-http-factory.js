@@ -172,12 +172,18 @@
        * @return {Promise}
        */
       function request(config) {
+        var requestInterceptor = config.interceptor &&
+          config.interceptor.request;
         var responseInterceptor = config.interceptor &&
           config.interceptor.response || defaultResponseInterceptor;
         var responseErrorInterceptor = config.interceptor &&
           config.interceptor.responseError || undefined;
 
         delete config.interceptor;
+
+        if (_.isFunction(requestInterceptor)) {
+          config = requestInterceptor(config);
+        }
 
         return $http(config)
           .then(responseInterceptor, responseErrorInterceptor);
