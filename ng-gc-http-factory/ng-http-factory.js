@@ -32,8 +32,8 @@
 
   angular.module('ngHttpFactory', [
   ]).service('HttpFactory', [
-    '$http',
-    function HttpFactoryService($http) {
+    '$http', '$q',
+    function HttpFactoryService($http, $q) {
 
       var enumDescriptors = _.redefine.as({
         enumerable: true,
@@ -186,7 +186,12 @@
         }
 
         return $http(config)
-          .then(responseInterceptor, responseErrorInterceptor);
+          .then(responseInterceptor, function reject(rejection) {
+            if (typeof responseErrorInterceptor === 'function') {
+              rejection = responseErrorInterceptor(rejection);
+            }
+            return $q.reject(rejection);
+          });
       }
 
       /**

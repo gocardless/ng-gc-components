@@ -185,8 +185,8 @@ describe('HttpFactory', function(){
               }
             }
           }
-        }).find().then(function(response) {
-          resp = response;
+        }).find().catch(function(rejection) {
+          resp = rejection;
         });
 
         $httpBackend.flush();
