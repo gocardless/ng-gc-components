@@ -11,7 +11,7 @@
           <label for="url" class="label">Web hook URL:</label>
         </div>
         <div class="control-group__column">
-          <input type="url" ng-model="webHook.form.url" name="url" id="url" class="input" placeholder="" required>
+          <input type="url" ng-model="webHook.form.url" name="url" id="url" class="input" placeholder="" ng-maxlength="255" required>
           <div class="error-label" ng-show="form.url.$dirty && form.url.$invalid">
             <span ng-show="form.url.$error.required">Please specify a url</span>
           </div>
