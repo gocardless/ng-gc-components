@@ -167,13 +167,6 @@
       }
 
       function makeHttpRequest(config, interceptors) {
-        return $http(config)
-          .then(interceptors.responseInterceptor, function reject(rejection) {
-            if (_.isFunction(interceptors.responseErrorInterceptor)) {
-              rejection = interceptors.responseErrorInterceptor(rejection);
-            }
-            return $q.reject(rejection);
-          });
       }
 
       /**
@@ -195,20 +188,15 @@
           config = requestInterceptor(config);
         }
 
-        if (_.isFunction(config.then)) {
-          return config.then(function(config) {
-            return makeHttpRequest(config, {
-              responseInterceptor: responseInterceptor,
-              responseErrorInterceptor: responseErrorInterceptor
+        return $q.when(config).then(function(config) {
+          return $http(config)
+            .then(responseInterceptor, function reject(rejection) {
+              if (_.isFunction(responseErrorInterceptor)) {
+                rejection = responseErrorInterceptor(rejection);
+              }
+              return $q.reject(rejection);
             });
-          });
-        }
-
-        return makeHttpRequest(config, {
-          responseInterceptor: responseInterceptor,
-          responseErrorInterceptor: responseErrorInterceptor
         });
-
       }
 
       /**
