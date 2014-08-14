@@ -166,9 +166,6 @@
         return config;
       }
 
-      function makeHttpRequest(config, interceptors) {
-      }
-
       /**
        * http request
        * @param  {Object} config
