@@ -3,12 +3,13 @@
 describe('HttpFactory', function(){
   beforeEach(module('ngHttpFactory'));
 
-  var HttpFactory, $httpBackend, $rootScope, callback;
+  var HttpFactory, $httpBackend, $rootScope, callback, $q;
 
   beforeEach(inject(function ($injector) {
     HttpFactory = $injector.get('HttpFactory');
     $httpBackend = $injector.get('$httpBackend');
     $rootScope = $injector.get('$rootScope');
+    $q = $injector.get('$q');
     callback = jasmine.createSpy();
   }));
 
@@ -146,6 +147,36 @@ describe('HttpFactory', function(){
 
         $httpBackend.flush();
 
+      });
+
+      it('intercepts request asynchronously', function() {
+        $httpBackend.expectGET('', {
+          'X-Bananas': 'yus',
+          'Accept':'application/json, text/plain, */*'
+        }).respond(200);
+
+        var asyncIsComplete = false;
+
+        factory({
+          find: {
+            method: 'GET',
+            interceptor: {
+              request: function(config) {
+                var deferred = $q.defer();
+                setTimeout(function() {
+                  config.headers = { 'X-Bananas': 'yus' };
+                  deferred.resolve(config);
+                  $httpBackend.flush();
+                  asyncIsComplete = true;
+                }, 1);
+                return deferred.promise;
+              }
+            }
+          }
+        }).find();
+        waitsFor(function() {
+          return asyncIsComplete;
+        });
       });
 
       it('intercepts response', function() {

@@ -185,13 +185,15 @@
           config = requestInterceptor(config);
         }
 
-        return $http(config)
-          .then(responseInterceptor, function reject(rejection) {
-            if (typeof responseErrorInterceptor === 'function') {
-              rejection = responseErrorInterceptor(rejection);
-            }
-            return $q.reject(rejection);
-          });
+        return $q.when(config).then(function(config) {
+          return $http(config)
+            .then(responseInterceptor, function reject(rejection) {
+              if (_.isFunction(responseErrorInterceptor)) {
+                rejection = responseErrorInterceptor(rejection);
+              }
+              return $q.reject(rejection);
+            });
+        });
       }
 
       /**
