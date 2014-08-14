@@ -166,6 +166,16 @@
         return config;
       }
 
+      function makeHttpRequest(config, interceptors) {
+        return $http(config)
+          .then(interceptors.responseInterceptor, function reject(rejection) {
+            if (_.isFunction(interceptors.responseErrorInterceptor)) {
+              rejection = interceptors.responseErrorInterceptor(rejection);
+            }
+            return $q.reject(rejection);
+          });
+      }
+
       /**
        * http request
        * @param  {Object} config
@@ -185,13 +195,20 @@
           config = requestInterceptor(config);
         }
 
-        return $http(config)
-          .then(responseInterceptor, function reject(rejection) {
-            if (typeof responseErrorInterceptor === 'function') {
-              rejection = responseErrorInterceptor(rejection);
-            }
-            return $q.reject(rejection);
+        if (_.isFunction(config.then)) {
+          return config.then(function(config) {
+            return makeHttpRequest(config, {
+              responseInterceptor: responseInterceptor,
+              responseErrorInterceptor: responseErrorInterceptor
+            });
           });
+        }
+
+        return makeHttpRequest(config, {
+          responseInterceptor: responseInterceptor,
+          responseErrorInterceptor: responseErrorInterceptor
+        });
+
       }
 
       /**
