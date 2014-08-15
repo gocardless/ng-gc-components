@@ -127,55 +127,141 @@ describe('HttpFactory', function(){
     });
 
     describe('interceptor', function() {
-      it('intercepts request', function() {
-        $httpBackend.expectGET('', {
-          'X-Bananas': 'yus',
-          'Accept':'application/json, text/plain, */*'
-        }).respond(200);
+      function syncSetBananas(config) {
+        config.headers = config.headers || {};
+        config.headers['X-Bananas'] = 'yus';
+        return config;
+      }
 
-        factory({
-          find: {
-            method: 'GET',
-            interceptor: {
-              request: function (config) {
-                config.headers = { 'X-Bananas': 'yus' };
-                return config;
-              }
-            }
-          }
-        }).find();
+      function syncSetPineapples(config) {
+        config.headers = config.headers || {};
+        config.headers['X-Pineapples'] = 'nope';
+        return config;
+      }
 
-        $httpBackend.flush();
+      function asyncSetBananas(config) {
+        var deferred = $q.defer();
 
+        config.headers = config.headers || {};
+        config.headers['X-Bananas'] = 'yus';
+
+        deferred.resolve(config);
+        return deferred.promise;
+      }
+
+      function asyncSetPineapples(config) {
+        var deferred = $q.defer();
+
+        config.headers = config.headers || {};
+        config.headers['X-Pineapples'] = 'nope';
+
+        deferred.resolve(config);
+        return deferred.promise;
+      }
+
+      describe('given one interceptor', function() {
+        describe('which is synchronous', function() {
+          it('intercepts request', function() {
+            $httpBackend.expectGET('', {
+              'X-Bananas': 'yus',
+              'Accept':'application/json, text/plain, */*'
+            }).respond(200);
+
+            factory({
+              find: { method: 'GET', interceptor: { request: syncSetBananas } }
+            }).find();
+
+            $httpBackend.flush();
+          });
+        });
+
+        describe('which is asynchronous', function() {
+          it('intercepts request', function() {
+            $httpBackend.expectGET('', {
+              'X-Bananas': 'yus',
+              'Accept':'application/json, text/plain, */*'
+            }).respond(200);
+
+            factory({
+              find: { method: 'GET', interceptor: { request: asyncSetBananas } }
+            }).find();
+
+            $httpBackend.flush();
+          });
+        });
       });
 
-      it('intercepts request asynchronously', function() {
-        $httpBackend.expectGET('', {
-          'X-Bananas': 'yus',
-          'Accept':'application/json, text/plain, */*'
-        }).respond(200);
+      describe('given multiple interceptors', function() {
+        describe('which are both synchronous', function() {
+          it('intercepts request', function() {
+            $httpBackend.expectGET('', {
+              'X-Bananas': 'yus',
+              'X-Pineapples': 'nope',
+              'Accept':'application/json, text/plain, */*'
+            }).respond(200);
 
-        var asyncIsComplete = false;
+            var interceptors = [syncSetBananas, syncSetPineapples];
 
-        factory({
-          find: {
-            method: 'GET',
-            interceptor: {
-              request: function(config) {
-                var deferred = $q.defer();
-                setTimeout(function() {
-                  config.headers = { 'X-Bananas': 'yus' };
-                  deferred.resolve(config);
-                  $httpBackend.flush();
-                  asyncIsComplete = true;
-                }, 1);
-                return deferred.promise;
-              }
-            }
-          }
-        }).find();
-        waitsFor(function() {
-          return asyncIsComplete;
+            factory({
+              find: { method: 'GET', interceptor: { request: interceptors } }
+            }).find();
+
+            $httpBackend.flush();
+          });
+
+          it('runs the interceptors in the order they were passed', function() {
+            $httpBackend.expectGET('', {
+              'X-Bananas': 'nope',
+              'Accept':'application/json, text/plain, */*'
+            }).respond(200);
+
+            var interceptors = [syncSetBananas, function syncResetBananas(config) {
+              config.headers['X-Bananas'] = 'nope';
+              return config;
+            }];
+
+            factory({
+              find: { method: 'GET', interceptor: { request: interceptors } }
+            }).find();
+
+            $httpBackend.flush();
+          });
+        });
+
+        describe('which are both asynchronous', function() {
+          it('intercepts request', function() {
+            $httpBackend.expectGET('', {
+              'X-Bananas': 'yus',
+              'X-Pineapples': 'nope',
+              'Accept':'application/json, text/plain, */*'
+            }).respond(200);
+
+            var interceptors = [asyncSetBananas, asyncSetPineapples];
+
+            factory({
+              find: { method: 'GET', interceptor: { request: interceptors } }
+            }).find();
+
+            $httpBackend.flush();
+          });
+        });
+
+        describe('which are mixed synchronous and asynchronous', function() {
+          it('intercepts request', function() {
+            $httpBackend.expectGET('', {
+              'X-Bananas': 'yus',
+              'X-Pineapples': 'nope',
+              'Accept':'application/json, text/plain, */*'
+            }).respond(200);
+
+            var interceptors = [syncSetBananas, asyncSetPineapples];
+
+            factory({
+              find: { method: 'GET', interceptor: { request: interceptors } }
+            }).find();
+
+            $httpBackend.flush();
+          });
         });
       });
 
