@@ -172,7 +172,7 @@
        * @return {Promise}
        */
       function request(config) {
-        var requestInterceptor = config.interceptor &&
+        var requestInterceptors = config.interceptor &&
           config.interceptor.request;
         var responseInterceptor = config.interceptor &&
           config.interceptor.response || defaultResponseInterceptor;
@@ -181,9 +181,20 @@
 
         delete config.interceptor;
 
-        if (_.isFunction(requestInterceptor)) {
-          config = requestInterceptor(config);
+        if (!_.isArray(requestInterceptors)) {
+          requestInterceptors = [requestInterceptors];
         }
+
+        config = $q.when(config);
+
+        requestInterceptors.forEach(function(interceptor) {
+          if (!_.isFunction(interceptor)) return;
+
+          config = config.then(function(configValue) {
+            return interceptor(configValue);
+          });
+        });
+
 
         return $q.when(config).then(function(config) {
           return $http(config)
