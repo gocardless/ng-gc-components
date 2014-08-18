@@ -36,7 +36,7 @@ describe('CsvExportDialogController', function(){
       ctrl.exportCSV(function getPromise() { return deferred.promise });
       deferred.resolve();
       scope.$digest();
-      expect(scope.showExportSuccess).toHaveBeenCalledOnce();
+      expect(scope.showExportSuccess).toHaveBeenCalled();
     });
 
     it('error', function() {
@@ -45,7 +45,7 @@ describe('CsvExportDialogController', function(){
       ctrl.exportCSV(function getPromise() { return deferred.promise });
       deferred.reject();
       scope.$digest();
-      expect(AlertService.error).toHaveBeenCalledOnce();
+      expect(AlertService.error).toHaveBeenCalled();
     });
   });
 
@@ -54,7 +54,7 @@ describe('CsvExportDialogController', function(){
       it('shows dialog', function() {
         spyOn(scope, 'showHelpDialog');
         scope.showExportSuccess();
-        expect(scope.showHelpDialog).toHaveBeenCalledOnce();
+        expect(scope.showHelpDialog).toHaveBeenCalled();
       });
     });
 
@@ -67,7 +67,7 @@ describe('CsvExportDialogController', function(){
       it('shows alert', function() {
         spyOn(AlertService, 'success');
         scope.showExportSuccess();
-        expect(AlertService.success).toHaveBeenCalledOnce();
+        expect(AlertService.success).toHaveBeenCalled();
       });
     });
   });

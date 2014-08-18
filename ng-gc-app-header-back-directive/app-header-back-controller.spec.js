@@ -17,7 +17,7 @@ describe('AppHeaderBackController', function(){
   it('#navigateBack', function() {
     spyOn($window.history, 'back');
     scope.navigateBack();
-    expect($window.history.back).toHaveBeenCalledOnce();
+    expect($window.history.back).toHaveBeenCalled();
   });
 
 });

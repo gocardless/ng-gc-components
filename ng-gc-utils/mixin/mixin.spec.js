@@ -14,16 +14,16 @@ describe('mixin', function(){
       var err = 'mixin expects a receiver and a supplier obj';
       expect(function() {
         utils.mixin();
-      }).toThrow(err);
+      }).toThrowError(err);
       expect(function() {
         utils.mixin({});
-      }).toThrow(err);
+      }).toThrowError(err);
     });
 
     it('extends receiver', function() {
       var receiver = { value: 'initial' };
       var supplier = { test: true };
-      expect(utils.mixin(receiver, supplier)).toEqualData({
+      expect(utils.mixin(receiver, supplier)).toEqual({
         value: 'initial',
         test: true
       });
@@ -45,7 +45,7 @@ describe('mixin', function(){
       utils.mixin(receiver, supplier);
 
       expect(Object.getOwnPropertyDescriptor(receiver, 'test'))
-        .toEqualData(descriptors);
+        .toEqual(descriptors);
     });
   });
 

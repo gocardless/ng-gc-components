@@ -35,7 +35,7 @@ describe('BaseAppService', function() {
       spyOn($window.Raven, 'setUser');
       $httpBackend.expectGET('/api/user').respond(user);
       $httpBackend.flush();
-      expect($window.Raven.setUser).toHaveBeenCalledOnceWith(user);
+      expect($window.Raven.setUser).toHaveBeenCalledWith(user);
     });
   });
 
@@ -51,7 +51,7 @@ describe('BaseAppService', function() {
     injectDependencies();
 
     it('has config', inject(function(AppConfigService) {
-      expect(AppConfigService).toEqualData(config);
+      expect(AppConfigService).toEqual(config);
     }));
   });
 
@@ -81,7 +81,7 @@ describe('BaseAppService', function() {
     var configSpy, installSpy;
     beforeEach(function() {
       installSpy = jasmine.createSpy('install');
-      configSpy = jasmine.createSpy('config').andReturn({
+      configSpy = jasmine.createSpy('config').and.returnValue({
         install: installSpy
       });
       window.Raven = {
@@ -101,8 +101,8 @@ describe('BaseAppService', function() {
     injectDependencies();
 
     it('configs Raven', function() {
-      expect(configSpy).toHaveBeenCalledOnceWith('/test', jasmine.any(Object));
-      expect(installSpy).toHaveBeenCalledOnce();
+      expect(configSpy).toHaveBeenCalledWith('/test', jasmine.any(Object));
+      expect(installSpy).toHaveBeenCalled();
     });
   });
 });

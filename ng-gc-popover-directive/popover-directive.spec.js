@@ -46,17 +46,17 @@ describe('PopoverDirective', function() {
     spyOn(elmScope, 'hideDialog');
     scope.$emit('closePopover');
     expect(scope.showPopover).toBe(false);
-    expect(elmScope.hideDialog).toHaveBeenCalledOnce();
+    expect(elmScope.hideDialog.calls.count()).toEqual(1);
   });
 
   it('has dialog', function() {
-    expect(elmScope.dialog).toBeInstanceOf($window.Dialog);
+    expect(elmScope.dialog).toEqual(jasmine.any($window.Dialog));
   });
 
   it('listens for dialog hide', function() {
     spyOn(elmScope, 'hideDialog');
     elmScope.dialog.emit($window.Dialog.HIDE);
-    expect(elmScope.hideDialog).toHaveBeenCalledOnce();
+    expect(elmScope.hideDialog.calls.count()).toEqual(1);
   });
 
 });

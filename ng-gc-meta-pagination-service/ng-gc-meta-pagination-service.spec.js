@@ -20,7 +20,7 @@ describe('MetaPaginationService', function(){
     }
 
     MetaPaginationService.setMeta(data, headers);
-    expect(data).toEqualData({meta: { page: 1 }});
+    expect(data).toEqual({meta: { page: 1 }});
   });
 
 });

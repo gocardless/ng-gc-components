@@ -15,7 +15,7 @@ describe('arrayOperations', function(){
       var newArr = [4, 5, 6];
 
       var replacedArr = utils.replace(oldArr, newArr);
-      expect(oldArr).toEqualData(newArr);
+      expect(oldArr).toEqual(newArr);
 
       // Check that we have the same reference object
       expect(oldArr).toBe(replacedArr);
@@ -28,7 +28,7 @@ describe('arrayOperations', function(){
       var newArr = [4, 5, 6];
 
       var appendedArr = utils.append(oldArr, newArr);
-      expect(oldArr).toEqualData([1, 2, 3, 31, 4, 5, 6]);
+      expect(oldArr).toEqual([1, 2, 3, 31, 4, 5, 6]);
 
       // Check that we have the same reference object
       expect(oldArr).toBe(appendedArr);

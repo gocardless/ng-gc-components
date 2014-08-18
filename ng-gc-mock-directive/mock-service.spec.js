@@ -24,7 +24,7 @@ describe('MockService', function(){
       response = resp;
     });
     $httpBackend.flush();
-    expect(response).toEqualData(mockResponse);
+    expect(response).toEqual(mockResponse);
   });
 
   it('#destroy', function() {

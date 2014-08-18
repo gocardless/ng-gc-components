@@ -40,28 +40,28 @@ describe('DialogController', function(){
     scope.hideDialog();
     scope.$digest();
     expect(scope.show).toBe(false);
-    expect(hideSpy).toHaveBeenCalledOnce();
+    expect(hideSpy).toHaveBeenCalled();
     expect(showSpy).not.toHaveBeenCalled();
   });
 
   it('calls dialog.show', function () {
     scope.show = true;
     scope.$digest();
-    expect(showSpy).toHaveBeenCalledOnce();
+    expect(showSpy).toHaveBeenCalled();
     expect(hideSpy).not.toHaveBeenCalled();
   });
 
   it('hides on location change', function () {
     $location.path('new-page');
     scope.$digest();
-    expect(hideSpy).toHaveBeenCalledOnce();
+    expect(hideSpy).toHaveBeenCalled();
     expect(showSpy).not.toHaveBeenCalled();
   });
 
   it('$destroy', function () {
     scope.$emit('$destroy');
     scope.$digest();
-    expect(removeSpy).toHaveBeenCalledOnce();
+    expect(removeSpy).toHaveBeenCalled();
   });
 
 });

@@ -15,7 +15,7 @@ describe('AlertService', function(){
 
   it('#success', function() {
     service.success('type');
-    expect(service.get()[0]).toEqualData({
+    expect(service.get()[0]).toEqual({
       type: 'success',
       message: 'type'
     });
@@ -23,7 +23,7 @@ describe('AlertService', function(){
 
   it('#error', function() {
     service.error('type');
-    expect(service.get()[0]).toEqualData({
+    expect(service.get()[0]).toEqual({
       type: 'error',
       message: 'type'
     });

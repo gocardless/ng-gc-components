@@ -19,6 +19,6 @@ describe('gc.featureService', function() {
       response = resp;
     });
     $httpBackend.flush();
-    expect(response).toEqualData(data);
+    expect(response).toEqual(data);
   });
 });

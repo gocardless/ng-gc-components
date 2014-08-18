@@ -18,7 +18,7 @@ describe('LocalStorageService', function(){
       LocalStorageService.setItem(KEY, VALUE);
 
       // Get
-      expect(LocalStorageService.getItem(KEY)).toEqualData(VALUE);
+      expect(LocalStorageService.getItem(KEY)).toEqual(VALUE);
 
       // Remove
       LocalStorageService.removeItem(KEY);
