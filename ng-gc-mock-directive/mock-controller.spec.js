@@ -30,7 +30,7 @@ describe('MockController', function(){
     $httpBackend.expectDELETE('/api/admin/user_mock').respond(200, []);
     scope.endSession();
     $httpBackend.flush();
-    expect(replaceSpy).toHaveBeenCalledOnce();
+    expect(replaceSpy.calls.count()).toEqual(1);
   });
 
   it('#changeSession', function() {
@@ -53,7 +53,7 @@ describe('MockController', function(){
       }).respond(200, []);
       scope.changeSession();
       $httpBackend.flush();
-      expect(replaceSpy).toHaveBeenCalledOnce();
+      expect(replaceSpy.calls.count()).toEqual(1);
     });
 
     it('error 404', function() {

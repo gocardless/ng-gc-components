@@ -59,7 +59,7 @@ describe('WebHookModel', function(){
         source_id: '2'
       });
 
-      expect(value.serialized).toEqualData({
+      expect(value.serialized).toEqual({
         web_hook: {
           action: 'created',
           resource_type: 'bill',
@@ -76,7 +76,7 @@ describe('WebHookModel', function(){
         source_id: '2'
       });
 
-      expect(value.serialized).toEqualData({
+      expect(value.serialized).toEqual({
         web_hook: {
           action: 'created',
           resource_type: 'subscription',

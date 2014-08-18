@@ -37,7 +37,7 @@ describe('FeedbackController', function(){
       scope.sendFeedback();
       $httpBackend.flush();
       expect(scope.feedback).toBe('');
-      expect(AlertService.success).toHaveBeenCalledOnce();
+      expect(AlertService.success).toHaveBeenCalled();
     });
 
     it('error', function() {
@@ -49,7 +49,7 @@ describe('FeedbackController', function(){
       scope.sendFeedback();
       $httpBackend.flush();
       expect(scope.feedback).toBe('11');
-      expect(AlertService.error).toHaveBeenCalledOnce();
+      expect(AlertService.error).toHaveBeenCalled();
     });
   });
 

@@ -10,14 +10,14 @@ describe('SecurityInterceptor', function() {
     interceptor = $injector.get('SecurityInterceptor');
     wrappedPromise = {};
     promise = {
-      then: jasmine.createSpy('then').andReturn(wrappedPromise)
+      then: jasmine.createSpy('then').and.returnValue(wrappedPromise)
     };
   }));
 
   it('accepts and returns a promise', function() {
     var newPromise = interceptor(promise);
     expect(promise.then).toHaveBeenCalled();
-    expect(promise.then.mostRecentCall.args[0]).toBe(null);
+    expect(promise.then.calls.mostRecent().args[0]).toBe(null);
     expect(newPromise).toBe(wrappedPromise);
   });
 
@@ -26,7 +26,7 @@ describe('SecurityInterceptor', function() {
       status: 400
     };
     interceptor(promise);
-    var errorHandler = promise.then.mostRecentCall.args[1];
+    var errorHandler = promise.then.calls.mostRecent().args[1];
     expect(errorHandler(httpResponse)).toBe(promise);
   });
 
@@ -35,7 +35,7 @@ describe('SecurityInterceptor', function() {
       status: 401
     };
     interceptor(promise);
-    var errorHandler = promise.then.mostRecentCall.args[1];
+    var errorHandler = promise.then.calls.mostRecent().args[1];
     errorHandler(notAuthResponse);
     expect(queue.hasMore()).toBe(true);
   });

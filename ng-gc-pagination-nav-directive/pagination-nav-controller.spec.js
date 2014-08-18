@@ -45,7 +45,7 @@ describe('PaginationNavController', function(){
 
       describe('with a path', function() {
         beforeEach(function() {
-          spyOn($location, 'path').andReturn('/somepath');
+          spyOn($location, 'path').and.returnValue('/somepath');
         });
 
         it('includes the path in the link', function() {

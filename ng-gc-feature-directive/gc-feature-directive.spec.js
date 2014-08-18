@@ -38,7 +38,7 @@ describe('gc.featureDirective', function() {
     });
 
     it('hides contents', function() {
-      expect(elm).toHaveClass('ng-hide');
+      expect(elm.hasClass('ng-hide')).toEqual(true);
     });
   });
 });

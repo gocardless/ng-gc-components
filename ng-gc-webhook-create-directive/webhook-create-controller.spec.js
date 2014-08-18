@@ -23,7 +23,7 @@ describe('WebHookCreateController', function(){
   describe('#createWebHook', function() {
     it('throws with no promise', function() {
       expect(scope.createWebHook)
-        .toThrow('onCreate must return a promise');
+        .toThrowError('onCreate must return a promise');
     });
 
     describe('onCreate', function() {
@@ -46,8 +46,8 @@ describe('WebHookCreateController', function(){
         deferred.resolve();
         scope.$digest();
 
-        expect(AlertService.success).toHaveBeenCalledOnce();
-        expect($route.reload).toHaveBeenCalledOnce();
+        expect(AlertService.success.calls.count()).toEqual(1);
+        expect($route.reload.calls.count()).toEqual(1);
       });
 
       it('error', function() {
@@ -61,9 +61,9 @@ describe('WebHookCreateController', function(){
         deferred.reject({ data: { errors: errors } });
         scope.$digest();
 
-        expect(AlertService.error).toHaveBeenCalledOnce();
-        expect($route.reload).not.toHaveBeenCalledOnce();
-        expect(scope.formErrors).toEqualData(errors);
+        expect(AlertService.error.calls.count()).toEqual(1);
+        expect($route.reload).not.toHaveBeenCalled();
+        expect(scope.formErrors).toEqual(errors);
       });
     });
 

@@ -63,9 +63,9 @@ describe('HttpFactory', function(){
         }
       });
 
-      expect(actions).toBeOfType('object');
-      expect(actions.get).toBeOfType('function');
-      expect(actions.save).toBeOfType('function');
+      expect(actions).toEqual(jasmine.any(Object));
+      expect(actions.get).toEqual(jasmine.any(Function));
+      expect(actions.save).toEqual(jasmine.any(Function));
     });
 
     describe('config', function() {
@@ -454,7 +454,7 @@ describe('HttpFactory', function(){
       params: {orderId: '123', verb:'.visa', minimum: 0.05}
     });
     var item = LineItem.query({ params: {id: 456} });
-    expect(item).toEqualData({id:'abc'});
+    expect(item).toEqual({id:'abc'});
   });
 
   it('should not pass default params between actions', function() {
@@ -496,7 +496,7 @@ describe('HttpFactory', function(){
         var UserService = queryFactory('/users/:id.json');
 
         var user = UserService.query();
-        expect(user).toEqualData([{id: 1, name: 'user1'}]);
+        expect(user).toEqual([{id: 1, name: 'user1'}]);
       });
 
       it('should not require it if not provided', function(){
@@ -504,7 +504,7 @@ describe('HttpFactory', function(){
           .respond([{id: 1, name: 'user1'}]);
         var UserService = queryFactory('/users.json');
         var user = UserService.query();
-        expect(user).toEqualData([{id: 1, name: 'user1'}]);
+        expect(user).toEqual([{id: 1, name: 'user1'}]);
       });
 
       it('should work when query params are supplied', function() {
@@ -514,7 +514,7 @@ describe('HttpFactory', function(){
         var user = UserService.query({
           params: { red: 'blue' }
         });
-        expect(user).toEqualData([{id: 1, name: 'user1'}]);
+        expect(user).toEqual([{id: 1, name: 'user1'}]);
       });
 
       it('works when query params are set and the format is def', function() {
@@ -526,7 +526,7 @@ describe('HttpFactory', function(){
         var user = UserService.query({
           params: { red: 'blue' }
         });
-        expect(user).toEqualData([{id: 1, name: 'user1'}]);
+        expect(user).toEqual([{id: 1, name: 'user1'}]);
       });
 
       it('should work with the action is overriden', function(){
@@ -539,7 +539,7 @@ describe('HttpFactory', function(){
           }
         });
         var user = UserService.query();
-        expect(user).toEqualData([ {id: 1, name: 'user1'} ]);
+        expect(user).toEqual([ {id: 1, name: 'user1'} ]);
       });
 
       it('should add them to the id', function() {
@@ -549,7 +549,7 @@ describe('HttpFactory', function(){
         var user = UserService.query({
           params: { user_id: 1 }
         });
-        expect(user).toEqualData({id: 1, name: 'user1'});
+        expect(user).toEqual({id: 1, name: 'user1'});
       });
 
       it('should work when an id and query params are supplied', function() {
@@ -559,7 +559,7 @@ describe('HttpFactory', function(){
         var user = UserService.query({
           params: { user_id: 1, red: 'blue' }
         });
-        expect(user).toEqualData({id: 1, name: 'user1'});
+        expect(user).toEqual({id: 1, name: 'user1'});
       });
 
       it('should work when the format is a param', function() {
@@ -573,7 +573,7 @@ describe('HttpFactory', function(){
         var user = UserService.query({
           params: { user_id: 1, red: 'blue' }
         });
-        expect(user).toEqualData({id: 1, name: 'user1'});
+        expect(user).toEqual({id: 1, name: 'user1'});
       });
 
       it('should work with the action is overriden', function(){
@@ -588,7 +588,7 @@ describe('HttpFactory', function(){
         var user = UserService.query({
           params: { user_id: 1 }
         });
-        expect(user).toEqualData({id: 1, name: 'user1'});
+        expect(user).toEqual({id: 1, name: 'user1'});
       });
     });
 
@@ -601,8 +601,8 @@ describe('HttpFactory', function(){
         UserService.save({data: {name: 'user1'} }).then(callback);
         expect(callback).not.toHaveBeenCalled();
         $httpBackend.flush();
-        expect(callback).toHaveBeenCalledOnce();
-        expect(callback.mostRecentCall.args[0]).toEqual(user);
+        expect(callback).toHaveBeenCalled();
+        expect(callback.calls.mostRecent().args[0]).toEqual(user);
       });
 
       it('should append when an id is supplied', function() {
@@ -617,8 +617,8 @@ describe('HttpFactory', function(){
         }).then(callback);
         expect(callback).not.toHaveBeenCalled();
         $httpBackend.flush();
-        expect(callback).toHaveBeenCalledOnce();
-        expect(callback.mostRecentCall.args[0]).toEqual(user);
+        expect(callback).toHaveBeenCalled();
+        expect(callback.calls.mostRecent().args[0]).toEqual(user);
       });
 
       it('appends when id is supplied and the format is a param', function() {
@@ -635,8 +635,8 @@ describe('HttpFactory', function(){
         }).then(callback);
         expect(callback).not.toHaveBeenCalled();
         $httpBackend.flush();
-        expect(callback).toHaveBeenCalledOnce();
-        expect(callback.mostRecentCall.args[0]).toEqual(user);
+        expect(callback).toHaveBeenCalled();
+        expect(callback.calls.mostRecent().args[0]).toEqual(user);
       });
     });
 
