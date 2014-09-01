@@ -10,7 +10,8 @@
     "object-factory.js": "git@github.com:gocardless/object-factory.js.git",
     "momentjs": "~2.5.1",
     "pikaday": "~1.2.0",
-    "big.js": "~2.5.0"
+    "big.js": "~2.5.0",
+    "gc-http-factory": "~0.0.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

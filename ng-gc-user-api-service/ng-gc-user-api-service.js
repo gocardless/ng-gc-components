@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngGcUserApiService', [
-  'ngHttpFactory'
+  'gc.httpFactory'
 ]).factory('UserApiService', [
   'HttpFactory',
   function UserApiService(HttpFactory) {

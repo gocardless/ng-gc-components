@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gc.feedbackService', [
-  'ngHttpFactory'
+  'gc.httpFactory'
 ]).factory('FeedbackService', [
   'HttpFactory',
   function FeedbackService(HttpFactory) {

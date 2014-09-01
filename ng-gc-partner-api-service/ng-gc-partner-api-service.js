@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngGcPartnerApiService', [
-  'ngHttpFactory'
+  'gc.httpFactory'
 ]).factory('PartnerApiService', [
   'HttpFactory',
   function PartnerApiService(HttpFactory) {
