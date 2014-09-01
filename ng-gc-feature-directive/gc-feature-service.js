@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gc.featureService', [
-  'ngHttpFactory'
+  'gc.httpFactory'
 ]).factory('FeatureService', [
   'HttpFactory',
   function FeatureService(HttpFactory) {

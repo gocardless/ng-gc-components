@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gc.mockService', [
-  'ngHttpFactory'
+  'gc.httpFactory'
 ]).factory('MockService', [
   'HttpFactory',
   function MockService(HttpFactory) {

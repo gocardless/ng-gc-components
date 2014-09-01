@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gc.appsService', [
-  'ngHttpFactory'
+  'gc.httpFactory'
 ]).factory('AppsService', [
   'HttpFactory',
   function AppsService(HttpFactory) {
