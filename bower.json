@@ -27,5 +27,8 @@
     "package.json",
     "Gruntfile.js",
     "karma.conf.js"
-  ]
+  ],
+  "resolutions": {
+    "angular": "1.3.0-rc.4"
+  }
 }
