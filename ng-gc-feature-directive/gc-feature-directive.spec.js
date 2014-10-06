@@ -8,7 +8,7 @@ describe('gc.featureDirective', function() {
   beforeEach(inject(function($rootScope, $compile, _$httpBackend_) {
     $httpBackend = _$httpBackend_;
 
-    elm = angular.element('<gc-feature feature="test">Content</gc-feature>');
+    elm = angular.element('<div><gc-feature feature="test"><span>hello</span></gc-feature></div>');
     scope = $rootScope.$new();
     $compile(elm)(scope);
   }));
@@ -19,12 +19,12 @@ describe('gc.featureDirective', function() {
       $httpBackend.whenGET('/api/features').respond({
         test: true
       });
-      scope.$digest();
       $httpBackend.flush();
+      scope.$digest();
     });
 
     it('shows contents', function() {
-      expect(elm.css('display')).not.toBe('none');
+      expect(elm.children().length).not.toEqual(0);
     });
   });
 
@@ -38,7 +38,7 @@ describe('gc.featureDirective', function() {
     });
 
     it('hides contents', function() {
-      expect(elm.hasClass('ng-hide')).toEqual(true);
+      expect(elm.children().length).toEqual(0);
     });
   });
 });

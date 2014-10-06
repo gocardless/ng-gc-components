@@ -12,6 +12,5 @@
   "components/object-factory.js/object-factory.js",
   "components/angular-mocks/angular-mocks.js",
   "components/gc-http-factory/gc-http-factory.js",
-  "components/jasmine-helpers/*.js",
   "**/*.spec.js"
 ]
