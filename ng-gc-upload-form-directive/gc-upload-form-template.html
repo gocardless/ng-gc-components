@@ -14,7 +14,7 @@
       <div ng-transclude>
       </div>
 
-      <div ng-show="uploadErrors">
+      <div ng-show="uploadErrors.length">
         <p ng-repeat="fileError in uploadErrors" class="u-text-primary u-text-h6 u-margin-Txxs">
           {{ fileError }}
         </p>
