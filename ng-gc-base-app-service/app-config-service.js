@@ -4,8 +4,6 @@ angular.module('ngGcAppConfigService', [
 ]).factory('AppConfigService', [
   '$window',
   function AppConfigService($window) {
-
-    return $window.AppConfig;
-
+    return $window.AppConfig || null;
   }
 ]);
