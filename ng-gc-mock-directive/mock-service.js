@@ -10,7 +10,10 @@ angular.module('gc.mockService', [
       url: '/api/admin/user_mock/:id'
     }, {
       'create': { method: 'POST' },
-      'destroy': { method: 'DELETE' }
+      'destroy': {
+        method: 'DELETE',
+        transformResponse: angular.noop
+      }
     });
 
   }

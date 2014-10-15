@@ -9,7 +9,10 @@ angular.module('gc.feedbackService', [
     return HttpFactory.create({
       url: '/api/feedback'
     }, {
-      'create': { method: 'POST' }
+      'create': {
+        method: 'POST',
+        transformResponse: angular.noop 
+      }
     });
 
   }
