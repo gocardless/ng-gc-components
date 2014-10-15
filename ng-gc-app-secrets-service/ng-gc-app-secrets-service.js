@@ -11,7 +11,10 @@ angular.module('gc.appSecretsService', [
     }, {
       findAll: { method: 'get' },
       create: { method: 'post' },
-      delete: { method: 'delete'}
+      delete: {
+        method: 'delete',
+        transformResponse: angular.noop 
+      }
     });
 
   }
