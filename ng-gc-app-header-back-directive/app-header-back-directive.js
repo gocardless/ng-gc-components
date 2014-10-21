@@ -13,7 +13,7 @@ angular.module('gc.appHeaderBack', [
       replace: true,
       controller: 'AppHeaderBackController',
       scope: {
-        title: '@',
+        headerTitle: '@',
         subheading: '@',
         showBackBtn: '@'
       }

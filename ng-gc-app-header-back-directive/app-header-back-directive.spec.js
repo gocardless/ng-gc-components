@@ -8,7 +8,7 @@ describe('AppHeaderBackDirective', function() {
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope;
     elm = angular.element(
-     '<app-header-back title="{{ headerTitle }}" ' +
+     '<app-header-back header-title="{{ headerTitle }}" ' +
      'subheading="{{ subheading }}" show-back-btn="{{ showBackBtn }}">' +
        '{{ message }}' +
      '</app-header-back>'
@@ -22,7 +22,7 @@ describe('AppHeaderBackDirective', function() {
     expect(hasClass).toBe(true);
   });
 
-  it('has title', function() {
+  it('has header-title', function() {
     scope.headerTitle = 'test';
     scope.$digest();
     expect(elm.find('.page__header__title').text()).toBe('test');
