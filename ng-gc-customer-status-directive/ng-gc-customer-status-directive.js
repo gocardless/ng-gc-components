@@ -12,7 +12,7 @@ angular.module('gc.customerStatus', [
       templateUrl: 'ng-gc-customer-status-template.html',
       replace: true,
       scope: {
-        title: '@',
+        showStatus: '@',
         customer: '='
       },
       controller: 'CustomerStatusController'

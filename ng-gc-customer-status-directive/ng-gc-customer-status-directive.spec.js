@@ -9,7 +9,7 @@ describe('customerStatusDirective', function() {
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
     elm = angular.element(
-      '<customer-status customer="customer" title="title"></customer-status>'
+      '<customer-status customer="customer" show-status="showStatus"></customer-status>'
     );
     scope.customer = customer;
     $compile(elm)(scope);
