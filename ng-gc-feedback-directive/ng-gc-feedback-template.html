@@ -1,7 +1,7 @@
 <div>
   <div toggle="isVisible" ng-transclude></div>
 
-  <dialog title="Help us improve" show="isVisible">
+  <dialog dialog-title="Help us improve" show="isVisible">
     <form ng-submit="sendFeedback()" name="feedbackForm" ng-controller="FeedbackController">
       <div class="u-padding-Am u-padding-Bn">
         <textarea class="input input--textarea" placeholder="Let us know what you think..." ng-model="feedback" required></textarea>
