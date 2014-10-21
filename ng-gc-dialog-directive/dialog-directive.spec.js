@@ -12,7 +12,7 @@ describe('DialogDirective', function() {
     var ID = Date.now();
     dialogElm = angular.element(
       '<div backdrop>' +
-      '<dialog title="{{ dialogTitle }}" show="showDialog" id="' + ID + '" >' +
+      '<dialog dialog-title="{{ dialogTitle }}" show="showDialog" id="' + ID + '" >' +
         '{{ message }}' +
       '</dialog>' +
       '</div>'
@@ -38,7 +38,7 @@ describe('DialogDirective', function() {
     expect(elm[0].hasAttribute('open')).toBe(true);
   });
 
-  it('has title', function() {
+  it('has dialog-title', function() {
     var title = 'title-test';
     scope.dialogTitle = title;
     scope.$digest();
