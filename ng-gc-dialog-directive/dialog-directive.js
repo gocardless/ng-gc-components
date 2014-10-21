@@ -13,11 +13,6 @@ angular.module('gc.dialog', [
     var DEFAULT_TMPL = 'dialog-template.html';
     var EMPTY_TMPL = 'dialog-empty-template.html';
 
-    // <div ng-init="boolean = false"></div>
-    // <div ng-init="dialogTitle = 'test'"></div>
-    // <dialog title="{{ dialogTitle }}" on-hide="onHide()" show="boolean"></dialog>
-    // {{ boolean }}
-
     return {
       restrict: 'E',
       templateUrl: function(element, attrs) {
@@ -48,8 +43,6 @@ angular.module('gc.dialog', [
         scope.dialog.append(element[0]);
 
         scope.backdrop = backdropController.backdrop;
-
-        scope.show = true;
 
         $rootScope.$on('closeDialog', scope.hideDialog);
 
