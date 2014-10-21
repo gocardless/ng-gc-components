@@ -24,7 +24,7 @@ angular.module('gc.dialog', [
       require: '^backdrop',
       controller: 'DialogController',
       scope: {
-        title: '@',
+        dialogTitle: '@',
         cancelText: '@',
         onHide: '&',
         show: '=',
