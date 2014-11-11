@@ -5,7 +5,8 @@ angular.module('gc.uploadForm', [
   'gc.file',
   'gc.stopPropagation',
   'gc.uploadFormController',
-  'gc-upload-form-template.html'
+  'gc-upload-form-template.html',
+  'gc.maxFileSize'
 ])
 .directive('gcUploadForm', [
   function GcUploadFormDirective() {
@@ -20,7 +21,8 @@ angular.module('gc.uploadForm', [
         formAction: '@',
         fileAccept: '@',
         isInlineUpload: '@',
-        onUploadEnd: '&'
+        onUploadEnd: '&',
+        maxFileUploadSize: '@'
       }
     };
 

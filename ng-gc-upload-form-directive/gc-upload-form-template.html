@@ -9,7 +9,11 @@
     }">
 
     <div class="well u-margin-Txxs u-padding-Axs">
-      <input type="file" name="file" ng-model="file" accept="{{ fileAccept }}" gc-file-value>
+      <input type="file" name="file"
+        max-file-size="{{ maxFileUploadSize }}"
+        ng-model="file"
+        accept="{{ fileAccept }}"
+        gc-file-value>
 
       <div ng-transclude>
       </div>
@@ -17,6 +21,12 @@
       <div ng-show="uploadErrors.length">
         <p ng-repeat="fileError in uploadErrors" class="u-text-primary u-text-h6 u-margin-Txxs">
           {{ fileError }}
+        </p>
+      </div>
+
+      <div ng-show="uploadForm.file.$error.maxFileSize">
+        <p class="u-text-primary u-text-h6 u-margin-Txxs">
+          File is too large (maximum size is {{ maxFileUploadSize / 1024 / 1024 }}MB)
         </p>
       </div>
     </div>
@@ -27,7 +37,7 @@
           'btn--block': !isInlineUpload,
           'btn--small': isInlineUpload
         }" id="fileUploadBtn"
-        ng-disabled="uploadForm.$pristine || !uploadForm.file.$viewValue || $isUploading">
+        ng-disabled="uploadForm.$invalid || uploadForm.$pristine || !uploadForm.file.$viewValue || $isUploading">
         <span>Upload<span ng-show="$isUploading">ing...</span></span>
       </button>
     </div>
