@@ -10,6 +10,7 @@ angular.module('ngGcHttpProviderConfig', [
 
     $httpProvider.defaults.headers.common.Accept = 'application/json';
     $httpProvider.defaults.headers.common['CLIENT-VERSION'] = clientVersion;
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
     $httpProvider.interceptors.push('httpGetParamInterceptor');
   }
