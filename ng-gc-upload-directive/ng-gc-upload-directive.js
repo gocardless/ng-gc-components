@@ -31,10 +31,11 @@
 
 'use strict';
 
-angular.module('gcUpload', [])
-  .directive('gcUpload', [
-    '$log',
-    function gcUploadDirective($log) {
+angular.module('gcUpload', [
+  'gc.utils.urlIsSameOrigin'
+]).directive('gcUpload', [
+    '$log', '$browser', 'urlIsSameOrigin',
+    function gcUploadDirective($log, $browser, urlIsSameOrigin) {
 
       function getActionAttrValue(element) {
         var action = element.attr('action');
@@ -73,6 +74,11 @@ angular.module('gcUpload', [])
             'style="width:0px;height:0px;border:none;display:none">'
           );
 
+          // XSRF protection for Rails
+          var xsrfValue = urlIsSameOrigin.urlIsSameOrigin(getActionAttrValue(element)) ? $browser.cookies()['XSRF-TOKEN'] : undefined;
+          var authToken = angular.element('<input type="hidden" name="authenticity_token" value="' + xsrfValue + '">');
+
+          element.prepend(authToken);
           element.after(iframe);
 
           setLoadingState(false);
