@@ -12,7 +12,9 @@ angular.module('gc.utils', [
   'gc.utils.addToFixed',
   'gc.utils.getStartAt',
   'gc.utils.getEarliestStartAt',
-  'gc.utils.getStartAtAfterToday'
+  'gc.utils.getStartAtAfterToday',
+  'gc.utils.urlIsSameOrigin',
+  'gc.utils.urlResolve'
 ]).factory('utils', [
   'arrayOperations',
   'emptyObject',
@@ -26,6 +28,8 @@ angular.module('gc.utils', [
   'getStartAt',
   'getEarliestStartAt',
   'getStartAtAfterToday',
+  'urlIsSameOrigin',
+  'urlResolve',
   function utilsService() {
     var utils = {};
     var slice = Array.prototype.slice;
