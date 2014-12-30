@@ -4,7 +4,7 @@
   "dependencies": {
     "angular": "1.3.0",
     "angular-route": "1.3.0",
-    "bower-lodash-angular": "git://github.com/gocardless-client/bower-lodash-angular.git",
+    "lodash": "~2.4.1",
     "bower-redefine": "git@github.com:gocardless-client/bower-redefine.git",
     "dialog.js": "git@github.com:gocardless/dialog.js.git",
     "object-factory.js": "git@github.com:gocardless/object-factory.js.git",

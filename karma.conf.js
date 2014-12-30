@@ -14,6 +14,8 @@ fs.readdirSync('./')
 
 var vendorComponents = require('./vendor-components.json');
 
+console.log(vendorComponents.concat(componentList))
+
 module.exports = function(config) {
   config.set({
     // base path, that will be used to resolve files and exclude
@@ -21,6 +23,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: vendorComponents.concat(componentList),
+
+    exclude: ['node_modules/**/*spec.js'],
 
     // Start these browsers, currently available:
     // - Chrome

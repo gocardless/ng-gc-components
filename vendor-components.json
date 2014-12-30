@@ -2,7 +2,7 @@
   "components/jquery/dist/jquery.js",
   "components/angular/angular.js",
   "components/angular-route/angular-route.js",
-  "components/bower-lodash-angular/lodash.custom.js",
+  "components/lodash/dist/lodash.js",
   "components/bower-redefine/redefine.js",
   "components/bower-eddy-x/eddy-x.js",
   "components/dialog.js/dialog.js",
