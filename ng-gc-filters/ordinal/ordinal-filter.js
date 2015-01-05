@@ -7,7 +7,7 @@ angular.module('ngGcOrdinal', [])
 
     return function ordinalFilter(input) {
       if ($window.parseInt(input, 10) > 0) {
-        return $window.moment.langData().ordinal(input);
+        return $window.moment.localeData().ordinal(input);
       } else return '';
     };
 

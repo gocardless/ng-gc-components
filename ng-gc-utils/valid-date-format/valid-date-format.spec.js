@@ -36,10 +36,7 @@ describe('validDateFormat', function(){
       isValidDate('231298');
       isValidDate('23-12-98');
       isValidDate('01 jan 2012');
-      isValidDate('09/04/1986');
       isValidDate('sep 4 1986');
-      isValidDate('september 4 1986');
-      isValidDate('1 january 1986');
     });
 
     describe('invalid', function() {

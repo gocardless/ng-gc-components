@@ -42,9 +42,15 @@ angular.module('gc.pikaday', [
         var pikaday = new $window.Pikaday(getOptions(scope.options));
 
         // if options change, set pikaday config again
-        scope.$watch('options', function() {
-          pikaday.config(getOptions(scope.options));
-          pikaday.draw();
+        scope.$watchCollection('options', function() {
+          var options = getOptions(scope.options);
+          pikaday.config(options);
+          var date = options.minDate || options.defaultDate;
+          if (date) {
+            pikaday.gotoDate($window.moment(date).toDate());
+          } else {
+            pikaday.gotoToday();
+          }
         });
 
         // Get out of Angulars event loop with setTimeout
