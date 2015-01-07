@@ -8,7 +8,7 @@
     "bower-redefine": "git@github.com:gocardless-client/bower-redefine.git",
     "dialog.js": "git@github.com:gocardless/dialog.js.git",
     "object-factory.js": "git@github.com:gocardless/object-factory.js.git",
-    "moment": "~2.8.4",
+    "moment": "2.8.3",
     "pikaday": "git://github.com/dbushell/Pikaday.git#master",
     "big.js": "~2.5.0",
     "gc-http-factory": "~0.0.1"
