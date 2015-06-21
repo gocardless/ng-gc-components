@@ -24,5 +24,8 @@
     "postinstall": "bower install",
     "test": "karma start",
     "watch": "karma start karma.conf.js --auto-watch --no-single-run"
+  },
+  "dependencies": {
+    "bower": "^1.4.1"
   }
 }

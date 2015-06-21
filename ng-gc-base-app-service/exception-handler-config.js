@@ -6,11 +6,11 @@ angular.module('ngGcExceptionHandlerProviderConfig', [
   function($provide) {
 
     $provide.decorator('$exceptionHandler', [
-      '$delegate',
-      function($delegate) {
+      '$delegate', '$window',
+      function($delegate, $window) {
         return function(exception, cause) {
-          window.Raven.captureException(exception);
           $delegate(exception, cause);
+          $window.Bugsnag.notifyException(exception);
         };
       }
     ]);
