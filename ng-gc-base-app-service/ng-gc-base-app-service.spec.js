@@ -21,21 +21,20 @@ describe('BaseAppService', function() {
     }));
   });
 
-  describe('RavenInitializer', function() {
+  describe('BugsnagInitializer', function() {
     beforeEach(function() {
-      $window.Raven = {
-        setUser: function() {}
+      $window.Bugsnag = {
+        user: null
       };
     });
-    beforeEach(module('ngGcRavenInitializer'));
+    beforeEach(module('ngGcBugsnagInitializer'));
     injectDependencies();
 
-    it('Raven.setUser', function() {
-      var user = {id: 1};
-      spyOn($window.Raven, 'setUser');
+    it('sets the Bugsnag user to the current user', function() {
+      var user = { id: 1 };
       $httpBackend.expectGET('/api/user').respond(user);
       $httpBackend.flush();
-      expect($window.Raven.setUser).toHaveBeenCalledWith(user);
+      expect($window.Bugsnag.user).toEqual(user);
     });
   });
 
@@ -59,7 +58,7 @@ describe('BaseAppService', function() {
     var clientVersion;
     beforeEach(function() {
       clientVersion = '911';
-      window.AppConfig = {
+      $window.AppConfig = {
         clientVersion: clientVersion
       };
     });
@@ -77,32 +76,26 @@ describe('BaseAppService', function() {
     });
   });
 
-  describe('HttpProviderConfig', function() {
-    var configSpy, installSpy;
+  describe('BugsnagConfigService', function() {
     beforeEach(function() {
-      installSpy = jasmine.createSpy('install');
-      configSpy = jasmine.createSpy('config').and.returnValue({
-        install: installSpy
-      });
-      window.Raven = {
-        config: configSpy
+      $window.Bugsnag = {
+        apiKey: null
       };
     });
     afterEach(function() {
-      delete window.Raven;
+      delete $window.Bugsnag;
     });
 
-    beforeEach(module('ngGcRavenConfigService'));
+    beforeEach(module('ngGcBugsnagConfigService'));
 
-    beforeEach(module(function(RavenConfigServiceProvider){
-      RavenConfigServiceProvider.config('/test');
+    beforeEach(module(function(BugsnagConfigServiceProvider){
+      BugsnagConfigServiceProvider.config({ apiKey: 'test-key' });
     }));
 
     injectDependencies();
 
-    it('configs Raven', function() {
-      expect(configSpy).toHaveBeenCalledWith('/test', jasmine.any(Object));
-      expect(installSpy).toHaveBeenCalled();
+    it('configures Bugsnag apiKey', function() {
+      expect($window.Bugsnag.apiKey).toEqual('test-key');
     });
   });
 });
