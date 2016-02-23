@@ -6,8 +6,8 @@ angular.module('ngSecurityService', [
   'ngAuthService'
 ])
 .factory('SecurityService', [
-  '$http', '$q', 'SecurityRetryQueue', 'AuthService',
-  function($http, $q, SecurityRetryQueue, AuthService) {
+  '$http', '$q', '$window', 'SecurityRetryQueue', 'AuthService',
+  function($http, $q, $window, SecurityRetryQueue, AuthService) {
 
     var globalSigninVisibleFlag;
     function openSignInDialog() {
@@ -40,6 +40,16 @@ angular.module('ngSecurityService', [
         openSignInDialog();
       },
 
+      // START: ONE-PRODUCT MIGRATION HACK
+      getLocation: function getLocation() {
+        return window.location;
+      },
+
+      setLocation: function setLocation(location) {
+        return window.location = location;
+      },
+      // END: ONE-PRODUCT MIGRATION HACK
+
       // Attempt to authenticate a user by the given email and password
       signIn: function signIn(user) {
         return AuthService.signIn({
@@ -47,9 +57,45 @@ angular.module('ngSecurityService', [
             user: user
           }
         }).then(function(response) {
-          service.currentSession = response;
-          if (service.isAuthenticated()) {
-            closeSignInDialog(true);
+          var signInAndCloseDialog = function(res) {
+            service.currentSession = response;
+
+            if (service.isAuthenticated()) {
+              closeSignInDialog(true);
+            }
+          };
+
+          if (_.has(response.data, 'migration_token')) { // START: ONE-PRODUCT MIGRATION HACK
+            try {
+              var template = _.template('//<%= host %>/?migration_token=<%= token %>');
+
+              var hostList = {
+                'dashboard.gocardless.dev:3004': 'localhost:3010',
+                'dashboard.gocardless.com': 'manage.gocardless.com',
+                'dashboard-staging.gocardless.com': 'manage-staging.gocardless.com',
+                'dashboard-sandbox.gocardless.com': 'manage-sandbox.gocardless.com',
+              };
+
+              var targetHost = hostList[service.getLocation().host];
+
+              if (targetHost) {
+                service.signOut(function () {
+                  service.setLocation(
+                    template({
+                      host: targetHost,
+                      token: response.data.migration_token
+                    })
+                  );
+                });
+              } else {
+                throw new Error('Host ' + window.location.host + ' is unknown to the one-product redirect.');
+              }
+            } catch (e) {
+              signInAndCloseDialog(response);
+              $window.Bugsnag.notifyException(e);
+            } // END: ONE-PRODUCT MIGRATION HACK
+          } else {
+            signInAndCloseDialog(response);
           }
         });
       },

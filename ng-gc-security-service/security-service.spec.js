@@ -3,7 +3,7 @@
 describe('SecurityService', function() {
 
   var $rootScope, $http, $httpBackend, $window;
-  var userInfo;
+  var userInfo, userInfoWithMigrationToken;
 
   beforeEach(module('ngSecurityService'));
 
@@ -19,6 +19,8 @@ describe('SecurityService', function() {
       firstName: 'Jo',
       lastName: 'Bloggs'
     };
+
+    userInfoWithMigrationToken = _.assign({ migration_token: 'JWT_SAMPLE_TOKEN' }, userInfo);
   }));
 
   afterEach(function() {
@@ -44,7 +46,7 @@ describe('SecurityService', function() {
       $httpBackend.expect('POST', '/api/auth', {
         user: { email: 'email', password: 'password' }
       }).respond(200, userInfo);
-      service.signIn({email: 'email', password: 'password'});
+      service.signIn({ email: 'email', password: 'password' });
       $httpBackend.flush();
     });
 
@@ -52,7 +54,7 @@ describe('SecurityService', function() {
       $httpBackend.when('POST', '/api/auth').respond(200, userInfo);
       spyOn(queue, 'retryAll');
       service.showSignIn();
-      service.signIn({email: 'email', password: 'password'});
+      service.signIn({ email: 'email', password: 'password' });
       $httpBackend.flush();
       $rootScope.$digest();
       expect(queue.retryAll).toHaveBeenCalled();
@@ -62,9 +64,83 @@ describe('SecurityService', function() {
       $httpBackend.when('POST', '/api/auth').respond(400, null);
       spyOn(queue, 'retryAll');
       expect(queue.retryAll).not.toHaveBeenCalled();
-      service.signIn({email: 'email', password: 'password'});
+      service.signIn({ email: 'email', password: 'password' });
       $httpBackend.flush();
       expect(queue.retryAll).not.toHaveBeenCalled();
+    });
+
+    it('does not attempt redirect when migration_token is not present', function() {
+      $httpBackend.when('POST', '/api/auth').respond(200, userInfo);
+      spyOn(service, 'getLocation');
+      spyOn(service, 'setLocation');
+      service.showSignIn();
+      service.signIn({ email: 'email', password: 'password' });
+      $httpBackend.flush();
+      $rootScope.$digest();
+      expect(service.getLocation).not.toHaveBeenCalled();
+      expect(service.setLocation).not.toHaveBeenCalled();
+    });
+
+    describe('when redirecting to PRO for one-product', function() {
+      beforeEach(function() {
+        $window.Bugsnag = {
+          notifyException: jasmine.createSpy('notifyException'),
+        };
+      })
+
+      describe('with a valid host', function() {
+        beforeEach(function() {
+          $httpBackend.when('DELETE', '/api/auth').respond(201, {});
+          $httpBackend.when('POST', '/api/auth').respond(200, userInfoWithMigrationToken);
+        });
+
+        [
+          ['dashboard.gocardless.dev:3004', 'localhost:3010'],
+          ['dashboard.gocardless.com', 'manage.gocardless.com'],
+          ['dashboard-staging.gocardless.com', 'manage-staging.gocardless.com'],
+          ['dashboard-sandbox.gocardless.com', 'manage-sandbox.gocardless.com']
+        ].forEach(function (hosts) {
+          it('redirects ' + hosts[0] + ' to: ' + hosts[1], function() {
+            spyOn(service, 'getLocation').and.returnValue({ host: hosts[0] });
+            spyOn(service, 'setLocation');
+            service.showSignIn();
+            service.signIn({ email: 'email', password: 'password' });
+            $httpBackend.flush();
+            $rootScope.$digest();
+            expect(service.getLocation).toHaveBeenCalled();
+            expect(service.setLocation).toHaveBeenCalledWith('//' + hosts[1] + '/?migration_token=' + userInfoWithMigrationToken.migration_token);
+          });
+        });
+      });
+
+      describe('with an invalid host', function() {
+        it('reports error and signs in normally', function() {
+          $httpBackend.when('POST', '/api/auth').respond(200, userInfoWithMigrationToken);
+          spyOn(queue, 'retryAll');
+          service.showSignIn();
+          service.signIn({ email: 'email', password: 'password' });
+          $httpBackend.flush();
+          $rootScope.$digest();
+          expect(queue.retryAll).toHaveBeenCalled();
+          expect($window.Bugsnag.notifyException).toHaveBeenCalled();
+        });
+      });
+
+      describe('when service.signOut() fails', function() {
+        it('reports error and signin normally', function() {
+          $httpBackend.when('POST', '/api/auth').respond(200, userInfoWithMigrationToken);
+          spyOn(service, 'getLocation').and.returnValue({ host: 'dashboard.gocardless.dev:3004' });
+          spyOn(service, 'signOut').and.throwError();
+          spyOn(queue, 'retryAll');
+          service.showSignIn();
+          service.signIn({ email: 'email', password: 'password' });
+          $httpBackend.flush();
+          $rootScope.$digest();
+          expect(service.getLocation).toHaveBeenCalled();
+          expect(queue.retryAll).toHaveBeenCalled();
+          expect($window.Bugsnag.notifyException).toHaveBeenCalled();
+        });
+      });
     });
   });
 
@@ -96,14 +172,14 @@ describe('SecurityService', function() {
 
     it('should be authenticated if we successfully sign in', function() {
       $httpBackend.when('POST', '/api/auth').respond(200, userInfo);
-      service.signIn({email: 'email', password: 'password'});
+      service.signIn({ email: 'email', password: 'password' });
       $httpBackend.flush();
       expect(service.isAuthenticated()).toBe(true);
     });
 
     it('should not be authenticated if we clear the user', function() {
       $httpBackend.when('POST', '/api/auth').respond(401);
-      service.signIn({email: 'email', password: 'password'});
+      service.signIn({ email: 'email', password: 'password' });
       $httpBackend.flush();
       expect(service.isAuthenticated()).toBe(false);
     });
