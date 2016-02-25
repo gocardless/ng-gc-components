@@ -98,7 +98,8 @@ describe('SecurityService', function() {
           ['dashboard.gocardless.dev:3004', 'localhost:3010'],
           ['dashboard.gocardless.com', 'manage.gocardless.com'],
           ['dashboard-staging.gocardless.com', 'manage-staging.gocardless.com'],
-          ['dashboard-sandbox.gocardless.com', 'manage-sandbox.gocardless.com']
+          ['dashboard-sandbox.gocardless.com', 'manage-sandbox.gocardless.com'],
+          ['dashboard-sandbox-staging.gocardless.com', 'manage-sandbox-staging.gocardless.com']
         ].forEach(function (hosts) {
           it('redirects ' + hosts[0] + ' to: ' + hosts[1], function() {
             spyOn(service, 'getLocation').and.returnValue({ host: hosts[0] });
