@@ -74,6 +74,7 @@ angular.module('ngSecurityService', [
                 'dashboard.gocardless.com': 'manage.gocardless.com',
                 'dashboard-staging.gocardless.com': 'manage-staging.gocardless.com',
                 'dashboard-sandbox.gocardless.com': 'manage-sandbox.gocardless.com',
+                'dashboard-sandbox-staging.gocardless.com': 'manage-sandbox-staging.gocardless.com',
               };
 
               var targetHost = hostList[service.getLocation().host];
